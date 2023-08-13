@@ -1,17 +1,18 @@
 {
   "files": {
-    "main.css": "/pharmeyoanwan/static/css/main.cb5377f0.css",
-    "main.js": "/pharmeyoanwan/static/js/main.4b4c085d.js",
+    "main.css": "/pharmeyoanwan/static/css/main.c932e995.css",
+    "main.js": "/pharmeyoanwan/static/js/main.5c9d0848.js",
+    "static/media/pharmeyo2.png": "/pharmeyoanwan/static/media/pharmeyo2.bb7d63dcff41d34299d8.png",
     "static/media/jonatan-pie-3l3RwQdHRHg-unsplash.jpg": "/pharmeyoanwan/static/media/jonatan-pie-3l3RwQdHRHg-unsplash.375d449c2c86b4ceddab.jpg",
+    "static/media/pharmeyo.png": "/pharmeyoanwan/static/media/pharmeyo.8ba58964817c12e22c7f.png",
     "static/media/instagram.png": "/pharmeyoanwan/static/media/instagram.ad89d851caa30154a1ef.png",
-    "static/media/pharmeyo-image1.jpg": "/pharmeyoanwan/static/media/pharmeyo-image1.5aefe0400332a15cd2b2.jpg",
     "static/media/Eyo IKPURI - CV.pdf": "/pharmeyoanwan/static/media/Eyo IKPURI - CV.bc95fc730ed627e970de.pdf",
     "index.html": "/pharmeyoanwan/index.html",
-    "main.cb5377f0.css.map": "/pharmeyoanwan/static/css/main.cb5377f0.css.map",
-    "main.4b4c085d.js.map": "/pharmeyoanwan/static/js/main.4b4c085d.js.map"
+    "main.c932e995.css.map": "/pharmeyoanwan/static/css/main.c932e995.css.map",
+    "main.5c9d0848.js.map": "/pharmeyoanwan/static/js/main.5c9d0848.js.map"
   },
   "entrypoints": [
-    "static/css/main.cb5377f0.css",
-    "static/js/main.4b4c085d.js"
+    "static/css/main.c932e995.css",
+    "static/js/main.5c9d0848.js"
   ]
 }
