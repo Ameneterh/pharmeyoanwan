@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.css": "/pharmeyoanwan/static/css/main.8af7fb21.css",
+    "main.css": "/pharmeyoanwan/static/css/main.e2e95877.css",
     "main.js": "/pharmeyoanwan/static/js/main.5c9d0848.js",
     "static/media/pharmeyo2.png": "/pharmeyoanwan/static/media/pharmeyo2.bb7d63dcff41d34299d8.png",
     "static/media/jonatan-pie-3l3RwQdHRHg-unsplash.jpg": "/pharmeyoanwan/static/media/jonatan-pie-3l3RwQdHRHg-unsplash.375d449c2c86b4ceddab.jpg",
@@ -8,11 +8,11 @@
     "static/media/instagram.png": "/pharmeyoanwan/static/media/instagram.ad89d851caa30154a1ef.png",
     "static/media/Eyo IKPURI - CV.pdf": "/pharmeyoanwan/static/media/Eyo IKPURI - CV.bc95fc730ed627e970de.pdf",
     "index.html": "/pharmeyoanwan/index.html",
-    "main.8af7fb21.css.map": "/pharmeyoanwan/static/css/main.8af7fb21.css.map",
+    "main.e2e95877.css.map": "/pharmeyoanwan/static/css/main.e2e95877.css.map",
     "main.5c9d0848.js.map": "/pharmeyoanwan/static/js/main.5c9d0848.js.map"
   },
   "entrypoints": [
-    "static/css/main.8af7fb21.css",
+    "static/css/main.e2e95877.css",
     "static/js/main.5c9d0848.js"
   ]
 }
