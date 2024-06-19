@@ -1,10 +1,10 @@
 import { useState } from "react";
-import SideBar from "../Components/SideBar";
-import ProfilePic from "../Components/ProfilePic";
-import ProgressBar from "../Components/ProgressBar";
-import Footer from "../Components/Footer";
-import CallToAction from "../Components/CallToAction";
-import Header from "../Components/Header";
+import SideBar from "../components/SideBar";
+import ProfilePic from "../components/ProfilePic";
+import ProgressBar from "../components/ProgressBar";
+import Footer from "../components/Footer";
+import CallToAction from "../components/CallToAction";
+import Header from "../components/Header";
 import { Link } from "react-router-dom";
 
 export default function ServicesPage() {

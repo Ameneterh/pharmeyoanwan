@@ -1,13 +1,13 @@
 import { useState } from "react";
-import SideBar from "../Components/SideBar";
-import ProfilePic from "../Components/ProfilePic";
-import ProgressBar from "../Components/ProgressBar";
-import Footer from "../Components/Footer";
-import CallToAction from "../Components/CallToAction";
+import SideBar from "../components/SideBar";
+import ProfilePic from "../components/ProfilePic";
+import ProgressBar from "../components/ProgressBar";
+import Footer from "../components/Footer";
+import CallToAction from "../components/CallToAction";
 import { Link } from "react-router-dom";
 import { MdOutlineMarkEmailUnread, MdAddCall } from "react-icons/md";
 import { FaWhatsapp, FaTwitter } from "react-icons/fa";
-import ContactPoints from "../Components/ContactPoints";
+import ContactPoints from "../components/ContactPoints";
 
 export default function ContactPage() {
   return (

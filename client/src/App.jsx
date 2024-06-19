@@ -1,13 +1,13 @@
 import { useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import HomePage from "./pages/HomePage";
-import Header from "./Components/Header";
+import Header from "./components/Header";
 import ServicesPage from "./pages/ServicesPage";
 import ProjectsPage from "./pages/ProjectsPage";
 import ContactPage from "./pages/ContactPage";
 import SignUp from "./pages/SignUp";
 import Login from "./pages/Login";
-import PrivateRoute from "./Components/PrivateRoute";
+import PrivateRoute from "./components/PrivateRoute";
 import Dashboard from "./pages/Dashboard";
 import AddProject from "./pages/AddProject";
 import ProjectView from "./pages/ProjectView";

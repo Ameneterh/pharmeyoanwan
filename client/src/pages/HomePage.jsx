@@ -1,10 +1,10 @@
 import { useState } from "react";
-import SideBar from "../Components/SideBar";
-import ProfilePic from "../Components/ProfilePic";
+import SideBar from "../components/SideBar";
+import ProfilePic from "../components/ProfilePic";
 import Typewriter from "typewriter-effect";
-import ProgressBar from "../Components/ProgressBar";
-import Footer from "../Components/Footer";
-import CallToAction from "../Components/CallToAction";
+import ProgressBar from "../components/ProgressBar";
+import Footer from "../components/Footer";
+import CallToAction from "../components/CallToAction";
 import { Link } from "react-router-dom";
 import {
   FaFacebook,
@@ -13,14 +13,6 @@ import {
   FaInstagramSquare,
 } from "react-icons/fa";
 import Strings from "../Shared/Strings";
-import { IoArrowForwardOutline } from "react-icons/io5";
-import SkillSet from "../Components/SkillSet";
-
-import mongo from "/mongo-icon.png";
-import express from "/express-icon.png";
-import reactIcon from "/react-icon.png";
-import nodejs from "/node-icon.png";
-import coreldraw from "/coreldraw-icon.png";
 
 export default function HomePage() {
   const servicesList = [
