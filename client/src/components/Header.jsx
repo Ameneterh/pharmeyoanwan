@@ -50,6 +50,15 @@ function Header() {
 
         <div className="flex gap-2 md:order-2">
           {/* show profile picture on login */}
+          <Button
+            className="w-12 h-10"
+            color="gray"
+            onClick={() => {
+              dispatch(toggleTheme());
+            }}
+          >
+            {theme === "light" ? <FaMoon /> : <FaSun />}
+          </Button>
           {currentUser ? (
             <Dropdown
               arrowIcon={false}
@@ -75,15 +84,6 @@ function Header() {
               </Button>
             </Link>
           )}
-          <Button
-            className="w-12 h-10"
-            color="gray"
-            onClick={() => {
-              dispatch(toggleTheme());
-            }}
-          >
-            {theme === "light" ? <FaMoon /> : <FaSun />}
-          </Button>
 
           <Navbar.Toggle />
         </div>
