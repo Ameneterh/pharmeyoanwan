@@ -4,8 +4,8 @@ export default function ProfilePic() {
   return (
     <div className="fixed">
       <img
-        src="/profilepic.png"
-        alt="amene terhemen profile image"
+        src="/pharmeyo2.png"
+        alt="eyoanwan ikpuri profile image"
         className=" h-screen object-cover"
       />
     </div>

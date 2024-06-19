@@ -37,12 +37,15 @@ function Header() {
         rounded
         className="border-b-2 bg-slate-200 dark:bg-slate-900"
       >
-        <div className="flex justify-center">
+        <div className="flex justify-center items-center gap-3">
           <img
-            src="/at-personal-logo.png"
+            src="/pharmeyo1.png"
             alt="profile"
             className="w-10 h-10 md:w-16 md:h-16 rounded-full bg-white p-1 object-cover border-2 border-red-500"
           />
+          <p className="text-2xl font-extrabold">
+            Eyo's <span className="italic text-red-700">Angle</span>
+          </p>
         </div>
 
         <div className="flex gap-2 md:order-2">
@@ -65,7 +68,13 @@ function Header() {
               <Dropdown.Divider />
               <Dropdown.Item onClick={handleSignout}>Log Out</Dropdown.Item>
             </Dropdown>
-          ) : null}
+          ) : (
+            <Link to="/login">
+              <Button gradientDuoTone="purpleToBlue" outline>
+                Sign In
+              </Button>
+            </Link>
+          )}
           <Button
             className="w-12 h-10"
             color="gray"

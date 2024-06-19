@@ -58,52 +58,8 @@ export default function ProjectsPage() {
             </div>
           )}
 
-          {/* web dev projects */}
-          {webdevProjects && webdevProjects.length > 0 ? (
-            <div className="flex flex-col w-full mt-2 sm:mt-8">
-              <div className="flex w-full">
-                <div className="flex w-full items-center">
-                  <div className="flex-1 border-b"></div>
-                  <div className="h-4 w-4 rounded-full bg-red-600 ml-1"></div>
-                  <h1 className="px-2 text-2xl font-bold">Web Dev Projects</h1>
-                </div>
-              </div>
+          <h1>Projects Page</h1>
 
-              <div className="w-full flex flex-wrap gap-4 mt-4">
-                {webdevProjects.map((weblist) => (
-                  <ProjectsComponent project={weblist} />
-                ))}
-              </div>
-            </div>
-          ) : (
-            <div className="w-full text-center min-h-[150px]">
-              No Web Dev Projects to load
-            </div>
-          )}
-
-          {/* graphic designs projects */}
-          {graphicsProjects && graphicsProjects.length > 0 ? (
-            <div className="flex flex-col w-full mt-2 sm:mt-8">
-              <div className="flex flex-col w-full">
-                <div className="flex w-full items-center">
-                  <h1 className="px-2 text-2xl font-bold">
-                    Graphics Design Projects
-                  </h1>
-                  <div className="h-4 w-4 rounded-full bg-red-600 mr-1"></div>
-                  <div className="flex-1 border-b"></div>
-                </div>
-              </div>
-              <div className="w-full flex flex-wrap gap-4 mt-4">
-                {graphicsProjects.map((graphiclist) => (
-                  <ProjectsComponent project={graphiclist} />
-                ))}
-              </div>
-            </div>
-          ) : (
-            <div className="w-full text-center min-h-[150px]">
-              No Web Dev Projects to load
-            </div>
-          )}
           <CallToAction />
           <Link
             to="/contact"
