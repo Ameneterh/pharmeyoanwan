@@ -1,5 +1,10 @@
 import React from "react";
-import { IoLogoGithub, IoLogoLinkedin, IoLogoTwitter } from "react-icons/io5";
+import {
+  IoLogoLinkedin,
+  IoLogoTwitter,
+  IoLogoFacebook,
+  IoLogoInstagram,
+} from "react-icons/io5";
 import { Link, useLocation } from "react-router-dom";
 
 export default function SideBar() {
@@ -14,9 +19,6 @@ export default function SideBar() {
         {path === "/contact" && "CONTACT"}
       </h2>
       <div className="flex flex-col gap-7 mb-10 text-[20px]">
-        <Link to="https://github.com/Ameneterh" target="_blank">
-          <IoLogoGithub className="cursor-pointer hover:scale-125 transition-all ease-in-out" />
-        </Link>
         <Link
           to="https://www.linkedin.com/in/terhemen-amene-53b77293/"
           target="_blank"
@@ -25,6 +27,12 @@ export default function SideBar() {
         </Link>
         <Link to="https://www.twitter.com/ameneterh" target="_blank">
           <IoLogoTwitter className="cursor-pointer hover:scale-125 transition-all ease-in-out" />
+        </Link>
+        <Link to="https://www.twitter.com/ameneterh" target="_blank">
+          <IoLogoFacebook className="cursor-pointer hover:scale-125 transition-all ease-in-out" />
+        </Link>
+        <Link to="https://www.twitter.com/ameneterh" target="_blank">
+          <IoLogoInstagram className="cursor-pointer hover:scale-125 transition-all ease-in-out" />
         </Link>
       </div>
     </div>
