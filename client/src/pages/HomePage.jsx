@@ -123,7 +123,7 @@ export default function HomePage() {
             <Modal.Header />
             <Modal.Body>
               <div className="text-center">
-                <p className=" text-md border-t-2 border-b-2 py-2">
+                <p className=" text-md border-t-2 border-b-2 py-2 px-4 border-red-500">
                   Hello <span className="font-bold">{name}</span> and welcome to
                   my website! <br />I am{" "}
                   <span className="font-bold">Ikpuri Eyoanwan Olaitan</span>,
@@ -134,7 +134,7 @@ export default function HomePage() {
                   time while doing so!
                 </p>
                 <div className="flex justify-center mt-4">
-                  <Button color="gray" onClick={() => setShowModal(false)}>
+                  <Button color="failure" onClick={() => setShowModal(false)}>
                     Close
                   </Button>
                 </div>

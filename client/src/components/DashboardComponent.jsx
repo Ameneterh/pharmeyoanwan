@@ -1,180 +1,235 @@
+import { current } from "@reduxjs/toolkit";
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
 import {
-  Table,
-  Alert,
-  Button,
-  Modal,
-  Spinner,
-  TextInput,
-} from "flowbite-react";
+  HiAnnotation,
+  HiArrowNarrowUp,
+  HiDocumentText,
+  HiOutlineUserGroup,
+} from "react-icons/hi";
+import { useSelector } from "react-redux";
+import { Button, Table } from "flowbite-react";
 import { Link } from "react-router-dom";
-import { HiOutlineExclamationCircle } from "react-icons/hi";
 
-export default function DashComponent() {
+export default function DashboardComponent() {
+  const [users, setUsers] = useState([]);
+  const [comments, setComments] = useState([]);
+  const [posts, setPosts] = useState([]);
+  const [totalUsers, setTotalUsers] = useState(0);
+  const [totalPosts, setTotalPosts] = useState(0);
+  const [totalComments, setTotalComments] = useState(0);
+  const [lastMonthUsers, setLastMonthUsers] = useState(0);
+  const [lastMonthPosts, setLastMonthPosts] = useState(0);
+  const [lastMonthComments, setLastMonthComments] = useState(0);
   const { currentUser } = useSelector((state) => state.user);
-  const [projects, setProjects] = useState([]);
-  const [showMore, setShowMore] = useState(true);
-  const [showModal, setShowModal] = useState(false);
-  const [projectIdToDelete, setProjectIdToDelete] = useState("");
 
   useEffect(() => {
-    const fetchProjects = async () => {
+    const fetchUsers = async () => {
       try {
-        const res = await fetch(
-          `/api/project/getprojects?userId=${currentUser._id}`
-        );
+        const res = await fetch("/api/user/getusers?limit=5");
         const data = await res.json();
         if (res.ok) {
-          setProjects(data.projects);
-          if (data.projects.length < 9) {
-            setShowMore(false);
-          }
+          setUsers(data.users);
+          setTotalUsers(data.totalUsers);
+          setLastMonthUsers(data.lastMonthUsers);
         }
       } catch (error) {
         console.log(error.message);
       }
     };
-    fetchProjects();
-  }, []);
 
-  const handleShowMore = async () => {
-    const startIndex = projects.length;
-    try {
-      const res = await fetch(
-        `/api/project/getprojects?userId=${currentUser._id}&startIndex=${startIndex}`
-      );
-      const data = await res.json();
-      if (res.ok) {
-        setProjects((prev) => [...prev, ...data.projects]);
-        if (data.projects.length < 9) {
-          setShowMore(false);
+    const fetchPosts = async () => {
+      try {
+        const res = await fetch("/api/post/getposts?limit=5");
+        const data = await res.json();
+        if (res.ok) {
+          setPosts(data.posts);
+          setTotalPosts(data.totalPosts);
+          setLastMonthPosts(data.lastMonthPosts);
         }
+      } catch (error) {
+        console.log(error.message);
       }
-    } catch (error) {
-      console.log(error.message);
-    }
-  };
+    };
 
-  const handleDeleteProject = async () => {
-    setShowModal(false);
-    try {
-      const res = await fetch(
-        `/api/project/deleteproject/${projectIdToDelete}/${currentUser._id}`,
-        { method: "DELETE" }
-      );
-      const data = await res.json();
-      if (!res.ok) {
-        console.log(data.message);
-      } else {
-        setProjects((prev) =>
-          prev.filter((project) => project._id !== projectIdToDelete)
-        );
+    const fetchComments = async () => {
+      try {
+        const res = await fetch("/api/comment/getcomments?limit=5");
+        const data = await res.json();
+        if (res.ok) {
+          setComments(data.comments);
+          setTotalComments(data.totalComments);
+          setLastMonthComments(data.lastMonthComments);
+        }
+      } catch (error) {
+        console.log(error.message);
       }
-    } catch (error) {
-      console.log(error.message);
+    };
+
+    if (currentUser.isAdmin) {
+      fetchUsers();
+      fetchPosts();
+      fetchComments();
     }
-  };
+  }, [currentUser]);
 
   return (
-    <div className="table-auto overflow-x-scroll md:mx-auto p-3 scrollbar scrollbar-track-slate-100 scrollbar-thumb-slate-300 dark:scrollbar-track-slate-700 dark:scrollbar-thumb-slate-500">
-      {currentUser && projects.length > 0 ? (
-        <>
-          <Table hoverable className="shadow-md">
+    <div className="p-3 md:mx-auto w-full">
+      <div className="flex-wrap flex gap-4 justify-center">
+        <div className="flex flex-col p-3 dark:bg-slate-800 gap-4 md:w-72 w-full rounded-md shadow-md">
+          <div className="flex justify-between">
+            <div className="">
+              <h3 className="text-gray-500 text-md uppercase">Total Users</h3>
+              <p className="text-2xl">{totalUsers}</p>
+            </div>
+            <HiOutlineUserGroup className="bg-teal-600 text-white rounded-full text-5xl p-3 shadow-lg" />
+          </div>
+          <div className="flex gap-2 text-sm">
+            <span className="text-green-500 flex items-center">
+              <HiArrowNarrowUp />
+              {lastMonthUsers}
+            </span>
+            <div className="text-gray-500">Last Month</div>
+          </div>
+        </div>
+
+        {/* 2nd */}
+        <div className="flex flex-col p-3 dark:bg-slate-800 gap-4 md:w-72 w-full rounded-md shadow-md">
+          <div className="flex justify-between">
+            <div className="">
+              <h3 className="text-gray-500 text-md uppercase">
+                Total Comments
+              </h3>
+              <p className="text-2xl">{totalComments}</p>
+            </div>
+            <HiAnnotation className="bg-indigo-600 text-white rounded-full text-5xl p-3 shadow-lg" />
+          </div>
+          <div className="flex gap-2 text-sm">
+            <span className="text-green-500 flex items-center">
+              <HiArrowNarrowUp />
+              {lastMonthComments}
+            </span>
+            <div className="text-gray-500">Last Month</div>
+          </div>
+        </div>
+
+        {/* 3rd */}
+        <div className="flex flex-col p-3 dark:bg-slate-800 gap-4 md:w-72 w-full rounded-md shadow-md">
+          <div className="flex justify-between">
+            <div className="">
+              <h3 className="text-gray-500 text-md uppercase">Total Posts</h3>
+              <p className="text-2xl">{totalPosts}</p>
+            </div>
+            <HiDocumentText className="bg-lime-600 text-white rounded-full text-5xl p-3 shadow-lg" />
+          </div>
+          <div className="flex gap-2 text-sm">
+            <span className="text-green-500 flex items-center">
+              <HiArrowNarrowUp />
+              {lastMonthPosts}
+            </span>
+            <div className="text-gray-500">Last Month</div>
+          </div>
+        </div>
+      </div>
+      {/* tables */}
+      <div className="flex flex-wrap gap-4 py-3 mx-auto justify-center">
+        <div className="flex flex-col w-full md:w-auto shadow-md p-2 rounded-md dark:bg-gray-800 flex-1">
+          <div className="flex justify-between p-3 text-sm font-semibold">
+            <h1 className="text-center p-2">Recent Users</h1>
+            <Button outline gradientDuoTone="purpleToPink">
+              <Link to={"/dashboard?tab=users"}>See all</Link>
+            </Button>
+          </div>
+          <Table hoverable>
             <Table.Head>
-              <Table.HeadCell>Date Updated</Table.HeadCell>
-              <Table.HeadCell>Project Image</Table.HeadCell>
-              <Table.HeadCell>Project Name</Table.HeadCell>
-              <Table.HeadCell>Category</Table.HeadCell>
-              <Table.HeadCell>Delete</Table.HeadCell>
-              <Table.HeadCell>
-                <span>Edit</span>
-              </Table.HeadCell>
+              <Table.HeadCell>User Image</Table.HeadCell>
+              <Table.HeadCell>Full Name</Table.HeadCell>
+              <Table.HeadCell>Email</Table.HeadCell>
             </Table.Head>
-            {projects.map((project) => (
-              <Table.Body className="divide-y" key={project._id}>
+            {users &&
+              users.map((user) => (
+                <Table.Body key={user._id} className="divide-y">
+                  <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
+                    <Table.Cell>
+                      <img
+                        src={user.avatar}
+                        alt="user"
+                        className="w-10 h-10 rounded-full bg-gray-500"
+                      />
+                    </Table.Cell>
+                    <Table.Cell>{user.fullname}</Table.Cell>
+                    <Table.Cell>
+                      <Link
+                        to={`mailto:${user.email}`}
+                        className="hover:text-blue-600 hover:underline"
+                      >
+                        {user.email}
+                      </Link>
+                    </Table.Cell>
+                  </Table.Row>
+                </Table.Body>
+              ))}
+          </Table>
+        </div>
+
+        {/* second */}
+        <div className="flex flex-col w-full md:w-auto shadow-md p-2 rounded-md dark:bg-gray-800 flex-1">
+          <div className="flex justify-between p-3 text-sm font-semibold">
+            <h1 className="text-center p-2">Recent Comments</h1>
+            <Button outline gradientDuoTone="purpleToPink">
+              <Link to={"/dashboard?tab=comments"}>See all</Link>
+            </Button>
+          </div>
+          <Table hoverable>
+            <Table.Head>
+              <Table.HeadCell>Comment Content</Table.HeadCell>
+              <Table.HeadCell>Likes</Table.HeadCell>
+            </Table.Head>
+            {comments &&
+              comments.map((comment) => (
+                <Table.Body key={comment._id} className="divide-y">
+                  <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
+                    <Table.Cell className="w-96">
+                      <p className="line-clamp-2">{comment.content}</p>
+                    </Table.Cell>
+                    <Table.Cell>{comment.numberOfLikes}</Table.Cell>
+                  </Table.Row>
+                </Table.Body>
+              ))}
+          </Table>
+        </div>
+      </div>
+      {/* third - SHOWING RECENT POSTS*/}
+      <div className="flex flex-col w-full md:w-auto shadow-md p-2 rounded-md dark:bg-gray-800 flex-1">
+        <div className="flex justify-between p-3 text-sm font-semibold">
+          <h1 className="text-center p-2">Recent Posts</h1>
+          <Button outline gradientDuoTone="purpleToPink">
+            <Link to={"/dashboard?tab=posts"}>See all</Link>
+          </Button>
+        </div>
+        <Table hoverable>
+          <Table.Head>
+            <Table.HeadCell>Post Image</Table.HeadCell>
+            <Table.HeadCell>Post Title</Table.HeadCell>
+            <Table.HeadCell>Category</Table.HeadCell>
+          </Table.Head>
+          {posts &&
+            posts.map((post) => (
+              <Table.Body key={post._id} className="divide-y">
                 <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
                   <Table.Cell>
-                    {new Date(project.updatedAt).toLocaleDateString()}
+                    <img
+                      src={post.image}
+                      alt="user"
+                      className="w-14. h-10 rounded-md bg-gray-500"
+                    />
                   </Table.Cell>
-                  <Table.Cell>
-                    <Link to={`/project/${project.slug}`}>
-                      <img
-                        src={project.projectimage}
-                        alt={project.projectname}
-                        className="w-20 h-10 object-cover bg-gray-500"
-                      />
-                    </Link>
-                  </Table.Cell>
-                  <Table.Cell>
-                    <Link
-                      className="font-medium text-gray-900 dark:text-white"
-                      to={`/project/${project.slug}`}
-                    >
-                      {project.projectname}
-                    </Link>
-                  </Table.Cell>
-                  <Table.Cell>{project.category}</Table.Cell>
-                  <Table.Cell>
-                    <span
-                      onClick={() => {
-                        setShowModal(true);
-                        setProjectIdToDelete(project._id);
-                      }}
-                      className="font-medium text-red-500 hover:underline cursor-pointer"
-                    >
-                      Delete
-                    </span>
-                  </Table.Cell>
-                  <Table.Cell>
-                    <Link
-                      className="text-teal-500 hover:underline"
-                      to={`/updateproject/${project._id}`}
-                    >
-                      <span>Edit</span>
-                    </Link>
-                  </Table.Cell>
+                  <Table.Cell className="w-96">{post.title}</Table.Cell>
+                  <Table.Cell className="w-5">{post.category}</Table.Cell>
                 </Table.Row>
               </Table.Body>
             ))}
-          </Table>
-          {showMore && (
-            <button
-              onClick={handleShowMore}
-              className="w-full text-teal-500 self-center text-sm py-7"
-            >
-              Show More
-            </button>
-          )}
-        </>
-      ) : (
-        <p>You have no Project yet!</p>
-      )}
-
-      <Modal
-        show={showModal}
-        onClose={() => setShowModal(false)}
-        popup
-        size="md"
-      >
-        <Modal.Header />
-        <Modal.Body>
-          <div className="text-center">
-            <HiOutlineExclamationCircle className="h-14 w-14 text-gray-400 dark:text-gray-200 mb-4 mx-auto" />
-            <h3 className="mb-5 text-lg text-gray-500 dark:text-gray-400">
-              Are you sure you want to delete this project?
-            </h3>
-            <div className="flex justify-center gap-4">
-              <Button color="failure" onClick={handleDeleteProject}>
-                Yes, I am Sure
-              </Button>
-              <Button color="gray" onClick={() => setShowModal(false)}>
-                No, Cancel
-              </Button>
-            </div>
-          </div>
-        </Modal.Body>
-      </Modal>
+        </Table>
+      </div>
     </div>
   );
 }

@@ -18,6 +18,8 @@ export default function DashUsers() {
   const [showModal, setShowModal] = useState(false);
   const [userIdToDelete, setUserIdToDelete] = useState("");
 
+  console.log(users);
+
   useEffect(() => {
     const fetchUsers = async () => {
       try {
@@ -78,10 +80,10 @@ export default function DashUsers() {
           <Table hoverable className="shadow-md">
             <Table.Head>
               <Table.HeadCell>Date created</Table.HeadCell>
-              <Table.HeadCell>user Image</Table.HeadCell>
-              <Table.HeadCell>username</Table.HeadCell>
-              <Table.HeadCell>email</Table.HeadCell>
-              <Table.HeadCell>admin</Table.HeadCell>
+              <Table.HeadCell>User Image</Table.HeadCell>
+              <Table.HeadCell>Full Name</Table.HeadCell>
+              <Table.HeadCell>Email</Table.HeadCell>
+              <Table.HeadCell>Admin</Table.HeadCell>
               <Table.HeadCell>Delete</Table.HeadCell>
             </Table.Head>
             {users.map((user) => (
@@ -92,12 +94,12 @@ export default function DashUsers() {
                   </Table.Cell>
                   <Table.Cell>
                     <img
-                      src={user.profilePicture}
-                      alt={user.username}
+                      src={user.avatar}
+                      alt={user.fullname}
                       className="w-10 h-10 object-cover bg-gray-500 rounded-full"
                     />
                   </Table.Cell>
-                  <Table.Cell>{user.username}</Table.Cell>
+                  <Table.Cell>{user.fullname}</Table.Cell>
                   <Table.Cell>{user.email}</Table.Cell>
                   <Table.Cell>
                     {user.isAdmin ? (
