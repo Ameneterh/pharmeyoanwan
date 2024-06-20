@@ -66,7 +66,9 @@ function Header() {
               label={<Avatar alt="user" img={currentUser.avatar} rounded />}
             >
               <Dropdown.Header>
-                <span className="block text-sm">@{currentUser.username}</span>
+                <span className="block text-sm font-bold">
+                  {currentUser.fullname}
+                </span>
                 <span className="block text-sm font-medium truncate">
                   {currentUser.email}
                 </span>
@@ -93,14 +95,17 @@ function Header() {
               Home
             </Link>
           </Navbar.Link>
-          <Navbar.Link active={path === "/services"} as={"div"}>
-            <Link to="/services" className="hover:underline underline-offset-4">
-              Services
+          <Navbar.Link active={path === "/writings"} as={"div"}>
+            <Link to="/writings" className="hover:underline underline-offset-4">
+              Writings
             </Link>
           </Navbar.Link>
-          <Navbar.Link active={path === "/projects"} as={"div"}>
-            <Link to="/projects" className="hover:underline underline-offset-4">
-              Projects
+          <Navbar.Link active={path === "/health-talks"} as={"div"}>
+            <Link
+              to="/health-talks"
+              className="hover:underline underline-offset-4"
+            >
+              Health Talks
             </Link>
           </Navbar.Link>
           <Navbar.Link active={path === "/contact"} as={"div"}>

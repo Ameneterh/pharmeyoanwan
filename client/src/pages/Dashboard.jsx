@@ -4,6 +4,10 @@ import React, { useEffect, useState } from "react";
 import DashSidebar from "../components/DashSidebar";
 import DashProfile from "../components/DashProfile";
 import DashboardComponent from "../components/DashboardComponent";
+import DashPosts from "../components/DashPosts";
+import DashMessages from "../components/DashMessages";
+import DashUsers from "../components/DashUsers";
+import DashComments from "../components/DashComments";
 
 export default function Dashboard() {
   const location = useLocation();
@@ -29,6 +33,18 @@ export default function Dashboard() {
 
       {/* for dashboard */}
       {tab === "dash" && <DashboardComponent />}
+
+      {/* for post */}
+      {tab === "posts" && <DashPosts />}
+
+      {/* for messages */}
+      {tab === "messages" && <DashMessages />}
+
+      {/* for post */}
+      {tab === "users" && <DashUsers />}
+
+      {/* for post */}
+      {tab === "comments" && <DashComments />}
     </div>
   );
 }

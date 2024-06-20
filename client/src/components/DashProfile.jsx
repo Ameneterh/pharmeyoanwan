@@ -194,11 +194,11 @@ export default function DashProfile() {
 
         <TextInput
           type="text"
-          id="username"
-          placeholder="username"
-          defaultValue={currentUser.username}
+          id="fullname"
+          placeholder="fullname"
+          defaultValue={currentUser.fullname}
           onChange={(e) =>
-            setFormData({ ...formData, username: e.target.value })
+            setFormData({ ...formData, fullname: e.target.value })
           }
         />
         <TextInput

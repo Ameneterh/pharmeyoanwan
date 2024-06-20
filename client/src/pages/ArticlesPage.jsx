@@ -8,7 +8,7 @@ import ProjectsComponent from "../components/ProjectsComponent";
 import { Link } from "react-router-dom";
 import { Spinner } from "flowbite-react";
 
-export default function ProjectsPage() {
+export default function ArticlesPage() {
   const [webdevProjects, setWebdevProjects] = useState([]);
   const [graphicsProjects, setGraphicsProjects] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -58,15 +58,7 @@ export default function ProjectsPage() {
             </div>
           )}
 
-          <h1>Projects Page</h1>
-
-          <CallToAction />
-          <Link
-            to="/contact"
-            className="flex items-center justify-center uppercase bg-blue-500 text-white w-[200px] h-12 hover:opacity-70 mt-5 rounded-lg mx-auto"
-          >
-            contact me
-          </Link>
+          <h1>Articles Page</h1>
         </div>
 
         <div className="hidden md:block right-0">

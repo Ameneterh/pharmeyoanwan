@@ -63,20 +63,29 @@ export default function HomePage() {
 
             <img
               src="/pharmeyo1.png"
-              className="w-[200px] h-[200px] p-4 bg-gradient-to-r from-slate-300 via-red-700 to-slate-300 rounded-full mt-5"
+              className="w-[230px] h-[230px] p-4 bg-gradient-to-r from-slate-300 via-red-700 to-slate-300 rounded-full mt-5"
             />
           </div>
           <div className="w-full justify-center flex gap-3 mt-5 text-2xl">
-            <Link to="#">
+            <Link
+              to="https://www.facebook.com/eyoanwan.ekanem.5"
+              target="_blank"
+            >
               <FaFacebook className="hover:opacity-85 hover:scale-110" />
             </Link>
-            <Link to="#">
+            <Link to="https://www.twitter.com/EyoanwanEkanem" target="_blank">
               <FaTwitterSquare className="hover:opacity-85 hover:scale-110" />
             </Link>
-            <Link to="#">
+            <Link
+              to="https://www.linkedin.com/in/eyoanwan-ekanem-0a6785133"
+              target="_blank"
+            >
               <FaLinkedin className="hover:opacity-85 hover:scale-110" />
             </Link>
-            <Link to="#">
+            <Link
+              to="https://www.instagram.com/eyoanwanolaitan"
+              target="_blank"
+            >
               <FaInstagramSquare className="hover:opacity-85 hover:scale-110" />
             </Link>
           </div>

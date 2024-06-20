@@ -42,11 +42,6 @@ export default function ContactPage() {
                 url="tel:+2348154230654"
                 smavatar={<MdAddCall className="text-2xl" />}
               />
-              <ContactPoints
-                title="Twitter"
-                url="https://www.twitter.com/ameneterh"
-                smavatar={<FaTwitter className="text-2xl" />}
-              />
             </div>
           </div>
         </div>
