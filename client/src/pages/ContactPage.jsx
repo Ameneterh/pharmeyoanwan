@@ -29,17 +29,17 @@ export default function ContactPage() {
             <div className="flex flex-wrap gap-4 justify-center">
               <ContactPoints
                 title="Email"
-                url="mailto:ameneterh@gmail.com"
+                url="mailto:airyor100@gmail.com"
                 smavatar={<MdOutlineMarkEmailUnread className="text-2xl" />}
               />
               <ContactPoints
                 title="WhatsApp"
-                url="https://wa.me/+2348154230654"
+                url="https://wa.me/+2348067387382"
                 smavatar={<FaWhatsapp className="text-2xl" />}
               />
               <ContactPoints
                 title="Call"
-                url="tel:+2348154230654"
+                url="tel:+2348067387382"
                 smavatar={<MdAddCall className="text-2xl" />}
               />
             </div>

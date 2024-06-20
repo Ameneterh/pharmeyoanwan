@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import SideBar from "../components/SideBar";
 import ProfilePic from "../components/ProfilePic";
 import Typewriter from "typewriter-effect";
@@ -13,8 +14,22 @@ import {
   FaInstagramSquare,
 } from "react-icons/fa";
 import Strings from "../Shared/Strings";
+import { Button, Modal } from "flowbite-react";
 
 export default function HomePage() {
+  const [showModal, setShowModal] = useState(false);
+  const [name, setName] = useState("User");
+  const { currentUser } = useSelector((state) => state.user);
+
+  useEffect(() => {
+    if (currentUser) {
+      setName(currentUser.fullname);
+    } else {
+      setName("User");
+    }
+    setShowModal(true);
+  }, [!currentUser || currentUser._id]);
+
   const servicesList = [
     {
       id: 1,
@@ -97,6 +112,35 @@ export default function HomePage() {
           >
             contact me
           </Link>
+
+          {/* modal show */}
+          <Modal
+            show={showModal}
+            onClose={() => setShowModal(false)}
+            popup
+            size="md"
+          >
+            <Modal.Header />
+            <Modal.Body>
+              <div className="text-center">
+                <p className=" text-md border-t-2 border-b-2 py-2">
+                  Hello <span className="font-bold">{name}</span> and welcome to
+                  my website! <br />I am{" "}
+                  <span className="font-bold">Ikpuri Eyoanwan Olaitan</span>,
+                  your host and guide on this online journey. I am thrilled to
+                  have you here and do hope that our time together will be
+                  filled with insightful conversations, learning, and enjoyment.
+                  Let's explore new ideas, share perspectives, and have a great
+                  time while doing so!
+                </p>
+                <div className="flex justify-center mt-4">
+                  <Button color="gray" onClick={() => setShowModal(false)}>
+                    Close
+                  </Button>
+                </div>
+              </div>
+            </Modal.Body>
+          </Modal>
         </div>
         <div className="hidden md:block right-0">
           <ProgressBar />
