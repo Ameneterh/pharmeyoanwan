@@ -46,7 +46,7 @@ export default function HomePage() {
             <h2 className="uppercase mt-5 text-black dark:text-slate-400 font-medium sm:text-[13px] tracking-widest">
               hello! my name is
             </h2>
-            <h2 className="uppercase text-[40px] md:text-[70px] font-bold text-black dark:text-slate-500 tracking-widest leading-[60px] md:leading-[80px] mt-5">
+            <h2 className="uppercase text-[40px] md:text-[60px] font-bold text-black dark:text-slate-500 tracking-widest leading-[60px] md:leading-[80px] mt-5">
               <span className="block">
                 <Typewriter
                   options={{
@@ -63,7 +63,7 @@ export default function HomePage() {
 
             <img
               src="/pharmeyo1.png"
-              className="w-[200px] h-[200px] p-4 bg-gray-400 rounded-full mt-5"
+              className="w-[200px] h-[200px] p-4 bg-gradient-to-r from-slate-300 via-red-700 to-slate-300 rounded-full mt-5"
             />
           </div>
           <div className="w-full justify-center flex gap-3 mt-5 text-2xl">

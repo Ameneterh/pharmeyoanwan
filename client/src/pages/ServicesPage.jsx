@@ -13,7 +13,7 @@ export default function ServicesPage() {
       {/* <Header /> */}
       <SideBar />
       <div className="ml-12 sm:ml-[90px] grid grid-cols-1 md:grid-cols-3">
-        <div className="col-span-1 sm:col-span-2 min-h-screen p-2 sm:p-4 mt-4 sm:mt-10">
+        <div className="col-span-1 sm:col-span-2 min-h-screen p-2 sm:p-4">
           <h1>Services Page</h1>
         </div>
 

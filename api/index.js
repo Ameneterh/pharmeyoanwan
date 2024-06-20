@@ -24,8 +24,8 @@ const app = express();
 app.use(express.json());
 app.use(cookieParser());
 
-app.listen(5050, () => {
-  console.log("Server is running on Port 5050");
+app.listen(1010, () => {
+  console.log("Server is running on Port 1010");
 });
 
 app.use("/api/user", userRouter);

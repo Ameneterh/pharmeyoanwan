@@ -43,7 +43,7 @@ function Header() {
             alt="profile"
             className="w-10 h-10 md:w-16 md:h-16 rounded-full bg-white p-1 object-cover border-2 border-red-500"
           />
-          <p className="text-2xl font-extrabold">
+          <p className="text-sm md:text-2xl font-extrabold">
             Eyo's <span className="italic text-red-700">Angle</span>
           </p>
         </div>
