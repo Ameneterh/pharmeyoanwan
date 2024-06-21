@@ -26,7 +26,7 @@ export const updateUser = async (req, res, next) => {
     req.body.password = bcryptjs.hashSync(req.body.password, 10);
   }
   if (req.body.fullname) {
-    if (!req.body.fullname.match(/^[a-zA-Z]+$/)) {
+    if (!req.body.fullname.match(/^[a-zA-Z ]+$/)) {
       return next(errorHandler(400, "Your name can only contain letters"));
     }
   }
