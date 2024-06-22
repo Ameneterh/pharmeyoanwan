@@ -234,13 +234,13 @@ export default function DashProfile() {
         </Button>
 
         {currentUser && (
-          <Link to="/add-project">
+          <Link to="/add-content">
             <Button
               type="button"
               gradientDuoTone="purpleToPink"
               className="w-full"
             >
-              Add a Project
+              Add Content
             </Button>
           </Link>
         )}

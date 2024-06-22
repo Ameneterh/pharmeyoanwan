@@ -1,7 +1,15 @@
 import React, { useState } from "react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
-import { TextInput, Select, FileInput, Button, Alert } from "flowbite-react";
+import {
+  TextInput,
+  Select,
+  FileInput,
+  Button,
+  Alert,
+  Spinner,
+  Textarea,
+} from "flowbite-react";
 import {
   getDownloadURL,
   getStorage,
@@ -13,13 +21,14 @@ import { CircularProgressbar } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 import { useNavigate } from "react-router-dom";
 
-export default function AddProject() {
+export default function AddPost() {
   const [file, setFile] = useState(null);
   const [imageUploadProgress, setImageUploadProgress] = useState(null);
   const [imageUploadError, setImageUploadError] = useState(null);
 
   const [formData, setFormData] = useState({});
   const [publishError, setPublishError] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
 
@@ -86,55 +95,24 @@ export default function AddProject() {
 
   return (
     <div className="p-3 max-w-3xl mx-auto min-h-screen">
-      <h1 className="text-center text-3xl my-7 font-semibold">Add a Project</h1>
+      <h1 className="text-center text-3xl mb-7 font-semibold">Add a Video</h1>
+      {/* <iframe
+        width="420"
+        height="315"
+        src="https://www.youtube.com/embed/fUDjhnXyUB4"
+        allowfullscreen
+      ></iframe> */}
 
       <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
-        <div className="flex gap-4 items-center justify-between border-2 border-purple-500 p-3 rounded-lg">
-          <FileInput
-            type="file"
-            accept="image/*"
-            onChange={(e) => setFile(e.target.files[0])}
-          />
-          <Button
-            type="button"
-            gradientDuoTone="purpleToBlue"
-            size="sm"
-            outline
-            onClick={handleUploadImage}
-            disabled={imageUploadProgress}
-          >
-            {imageUploadProgress ? (
-              <div className="w-16 h-16">
-                <CircularProgressbar
-                  value={imageUploadProgress}
-                  text={`${imageUploadProgress || 0}%`}
-                />
-              </div>
-            ) : (
-              "Upload Image"
-            )}
-          </Button>
-        </div>
-
-        {imageUploadError && <Alert color="failure">{imageUploadError}</Alert>}
-
-        {formData.projectimage && (
-          <img
-            src={formData.projectimage}
-            alt="upload"
-            className="w-full, h-72 object-cover"
-          />
-        )}
-
         <div className="flex flex-col gap-4 sm:flex-row justify-between">
           <TextInput
             type="text"
-            placeholder="Project Name"
+            placeholder="Video Title"
             required
-            id="projectname"
+            id="videotitle"
             className="flex-1"
             onChange={(e) =>
-              setFormData({ ...formData, projectname: e.target.value })
+              setFormData({ ...formData, videotitle: e.target.value })
             }
           />
           <Select
@@ -143,8 +121,10 @@ export default function AddProject() {
             }
           >
             <option>Select a category</option>
-            <option value="webdev">Web Development</option>
-            <option value="graphics">Graphics Design</option>
+            <option value="cosmetics">Cosmetics & Beauty</option>
+            <option value="drugs">Drugs & Medicines</option>
+            <option value="foods">Foods & Minerals</option>
+            <option value="others">Others</option>
           </Select>
         </div>
 
@@ -158,18 +138,30 @@ export default function AddProject() {
           }
         />
 
-        <ReactQuill
-          theme="snow"
-          placeholder="Write something ..."
-          className="h-20 mb-12"
+        <Textarea
+          placeholder="Add a description of video ..."
+          rows={3}
+          maxLength={200}
           required
           onChange={(value) => {
-            setFormData({ ...formData, description: value });
+            setFormData({ ...formData, videodescription: value });
           }}
         />
 
-        <Button type="submit" gradientDuoTone="purpleToPink" outline>
-          Save Project
+        <Button
+          gradientDuoTone="purpleToPink"
+          outline
+          type="submit"
+          disabled={loading}
+        >
+          {loading ? (
+            <>
+              <Spinner size="sm" />
+              <span className="pl-3">Publishing ...</span>
+            </>
+          ) : (
+            "Publish Video"
+          )}
         </Button>
 
         {publishError && (

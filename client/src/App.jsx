@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import HomePage from "./pages/HomePage";
 import Header from "./components/Header";
@@ -7,15 +6,13 @@ import SignUp from "./pages/SignUp";
 import Login from "./pages/Login";
 import PrivateRoute from "./components/PrivateRoute";
 import Dashboard from "./pages/Dashboard";
-import AddProject from "./pages/AddProject";
 import ProjectView from "./pages/ProjectView";
 import UpdateProject from "./pages/UpdateProject";
 import ArticlesPage from "./pages/ArticlesPage";
 import HealthTalksPage from "./pages/HealthTalksPage";
+import AddContent from "./pages/AddContent";
 
 function App() {
-  const [count, setCount] = useState(0);
-
   return (
     <BrowserRouter>
       <Header />
@@ -29,7 +26,9 @@ function App() {
         <Route path="/project/:slug" element={<ProjectView />} />
         <Route element={<PrivateRoute />}>
           <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/add-project" element={<AddProject />} />
+        </Route>
+        <Route element={<PrivateRoute />}>
+          <Route path="/add-content" element={<AddContent />} />
           <Route path="/updateproject/:projectId" element={<UpdateProject />} />
         </Route>
       </Routes>

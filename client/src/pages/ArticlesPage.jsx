@@ -16,7 +16,7 @@ export default function ArticlesPage() {
   console.log(webdevProjects);
   console.log(graphicsProjects);
 
-  console.log(webdevProjects.length);
+  // console.log(webdevProjects.length);
 
   useEffect(() => {
     setLoading(true);

@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+.focus\:ring-cyan-300:focus {
+  --tw-ring-opacity: 0 !important;
+}
+
 :root {
   font-family: Outfit, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
