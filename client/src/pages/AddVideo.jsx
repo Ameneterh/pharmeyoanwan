@@ -1,6 +1,4 @@
 import React, { useState } from "react";
-import ReactQuill from "react-quill";
-import "react-quill/dist/quill.snow.css";
 import {
   TextInput,
   Select,
@@ -10,69 +8,22 @@ import {
   Spinner,
   Textarea,
 } from "flowbite-react";
-import {
-  getDownloadURL,
-  getStorage,
-  uploadBytesResumable,
-  ref,
-} from "firebase/storage";
-import { app } from "../firebase.js";
-import { CircularProgressbar } from "react-circular-progressbar";
-import "react-circular-progressbar/dist/styles.css";
 import { useNavigate } from "react-router-dom";
+import ReactQuill from "react-quill";
 
 export default function AddPost() {
-  const [file, setFile] = useState(null);
-  const [imageUploadProgress, setImageUploadProgress] = useState(null);
-  const [imageUploadError, setImageUploadError] = useState(null);
-
   const [formData, setFormData] = useState({});
   const [publishError, setPublishError] = useState(null);
   const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
 
-  const handleUploadImage = async () => {
-    try {
-      if (!file) {
-        setImageUploadError("Please, select an image");
-        return;
-      }
-      setImageUploadError(null);
-      const storage = getStorage(app);
-      const fileName = new Date().getTime() + "-" + file.name;
-      const storageRef = ref(storage, fileName);
-      const uploadTask = uploadBytesResumable(storageRef, file);
-      uploadTask.on(
-        "state_changed",
-        (snapshot) => {
-          const progress =
-            (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-          setImageUploadProgress(progress.toFixed(0));
-        },
-        (error) => {
-          setImageUploadError("Image upload failed!");
-          setImageUploadProgress(null);
-        },
-        () => {
-          getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-            setImageUploadProgress(null);
-            setImageUploadError(null);
-            setFormData({ ...formData, projectimage: downloadURL });
-          });
-        }
-      );
-    } catch (error) {
-      setImageUploadError("Image upload failed!!");
-      setImageUploadProgress(null);
-      // console.log(error);
-    }
-  };
+  console.log(formData);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await fetch("/api/project/create", {
+      const res = await fetch("/api/content/addvideo", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -86,7 +37,7 @@ export default function AddPost() {
       }
       if (res.ok) {
         setPublishError(null);
-        navigate(`/project/${data.slug}`);
+        navigate("/health-talks");
       }
     } catch (error) {
       setPublishError("Something went wrong");
@@ -96,12 +47,6 @@ export default function AddPost() {
   return (
     <div className="p-3 max-w-3xl mx-auto min-h-screen">
       <h1 className="text-center text-3xl mb-7 font-semibold">Add a Video</h1>
-      {/* <iframe
-        width="420"
-        height="315"
-        src="https://www.youtube.com/embed/fUDjhnXyUB4"
-        allowfullscreen
-      ></iframe> */}
 
       <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
         <div className="flex flex-col gap-4 sm:flex-row justify-between">
@@ -130,18 +75,18 @@ export default function AddPost() {
 
         <TextInput
           type="text"
-          placeholder="Project URL (for webdev projects only)"
-          id="liveurl"
+          placeholder="Video URL"
+          id="videoId"
           className="flex-1"
           onChange={(e) =>
-            setFormData({ ...formData, liveurl: e.target.value })
+            setFormData({ ...formData, videoId: e.target.value.split("=")[1] })
           }
         />
 
-        <Textarea
-          placeholder="Add a description of video ..."
-          rows={3}
-          maxLength={200}
+        <ReactQuill
+          theme="snow"
+          placeholder="Write something ..."
+          className="h-20 mb-12"
           required
           onChange={(value) => {
             setFormData({ ...formData, videodescription: value });

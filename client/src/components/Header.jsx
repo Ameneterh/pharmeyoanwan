@@ -96,8 +96,8 @@ function Header() {
             </Link>
           </Navbar.Link>
           <Navbar.Link active={path === "/writings"} as={"div"}>
-            <Link to="/writings" className="hover:underline underline-offset-4">
-              Writings
+            <Link to="/posts" className="hover:underline underline-offset-4">
+              Article Posts
             </Link>
           </Navbar.Link>
           <Navbar.Link active={path === "/health-talks"} as={"div"}>

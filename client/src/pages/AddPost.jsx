@@ -57,7 +57,7 @@ export default function AddPost() {
           getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
             setImageUploadProgress(null);
             setImageUploadError(null);
-            setFormData({ ...formData, projectimage: downloadURL });
+            setFormData({ ...formData, postimage: downloadURL });
           });
         }
       );
@@ -71,7 +71,7 @@ export default function AddPost() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await fetch("/api/project/create", {
+      const res = await fetch("/api/content/create-post", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -85,7 +85,7 @@ export default function AddPost() {
       }
       if (res.ok) {
         setPublishError(null);
-        navigate(`/project/${data.slug}`);
+        navigate(`/post/${data.slug}`);
       }
     } catch (error) {
       setPublishError("Something went wrong");

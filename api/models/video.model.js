@@ -19,7 +19,7 @@ const videoSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    liveurl: {
+    videoId: {
       type: String,
       required: true,
     },

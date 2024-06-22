@@ -1,48 +1,46 @@
-import Post from "../models/post.model.js";
+import Video from "../models/video.model.js";
 import { errorHandler } from "../utils/error.js";
 
-export const createPost = async (req, res, next) => {
+export const addvideo = async (req, res, next) => {
   console.log(req.user);
   if (!req.user) {
     return next(errorHandler(403, "You are not allowed to create a post"));
   }
 
-  if (!req.body.posttitle || !req.body.postcontent || !req.body.category) {
+  if (
+    !req.body.videotitle ||
+    !req.body.videodescription ||
+    !req.body.category ||
+    !req.body.videoId
+  ) {
     return next(errorHandler(400, "Please, provide all required fields"));
   }
-  const slug = req.body.posttitle
-    .split(" ")
-    .join("-")
-    .toLowerCase()
-    .replace(/[^a-zA-Z0-9]/g, "-");
-  const newPost = new Post({
+  const newVideo = new Video({
     ...req.body,
-    slug,
     userId: req.user.userId,
   });
 
   try {
-    const savedPost = await newPost.save();
-    res.status(201).json(savedPost);
+    const savedVideo = await newVideo.save();
+    res.status(201).json(savedVideo);
   } catch (error) {
     next(error);
   }
 };
 
-export const getposts = async (req, res, next) => {
+export const getvideos = async (req, res, next) => {
   try {
     const startIndex = parseInt(req.query.startIndex) || 0;
     const limit = parseInt(req.query.limit) || 9;
     const sortDirection = req.query.order || "asc" ? 1 : -1;
-    const posts = await Post.find({
+    const videos = await Video.find({
       ...(req.query.userId && { userId: req.query.userId }),
       ...(req.query.category && { category: req.query.category }),
-      ...(req.query.slug && { slug: req.query.slug }),
-      ...(req.query.postId && { _id: req.query.postId }),
+      ...(req.query.videoId && { _id: req.query.videoId }),
       ...(req.query.searchTerm && {
         $or: [
-          { posttitle: { $regex: req.query.searchTerm, $options: "i" } },
-          { description: { $regex: req.query.searchTerm, $options: "i" } },
+          { videotitle: { $regex: req.query.searchTerm, $options: "i" } },
+          { videodescription: { $regex: req.query.searchTerm, $options: "i" } },
         ],
       }),
     })
@@ -50,7 +48,7 @@ export const getposts = async (req, res, next) => {
       .skip(startIndex)
       .limit(limit);
 
-    const totalPosts = await Post.countDocuments();
+    const totalVideos = await Video.countDocuments();
     const now = new Date();
     const oneMonthAgo = new Date(
       now.getFullYear(),
@@ -58,11 +56,11 @@ export const getposts = async (req, res, next) => {
       now.getDate()
     );
 
-    const lastMonthPosts = await Post.countDocuments({
+    const lastMonthVideos = await Video.countDocuments({
       createdAt: { $gte: oneMonthAgo },
     });
 
-    res.status(200).json({ posts, totalPosts, lastMonthPosts });
+    res.status(200).json({ videos, totalVideos, lastMonthVideos });
   } catch (error) {
     next(error);
   }
