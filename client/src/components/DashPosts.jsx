@@ -22,7 +22,7 @@ export default function DashPosts() {
     const fetchPosts = async () => {
       try {
         // const res = await fetch(`/api/post/getposts?userId=${currentUser._id}`);
-        const res = await fetch(`/api/post/getposts`);
+        const res = await fetch(`/api/content/getposts`);
         const data = await res.json();
         if (res.ok) {
           setUserPosts(data.posts);
@@ -43,7 +43,7 @@ export default function DashPosts() {
     const startIndex = userPosts.length;
     try {
       const res = await fetch(
-        `/api/post/getposts?userId=${currentUser._id}&startIndex=${startIndex}`
+        `/api/content/getposts?userId=${currentUser._id}&startIndex=${startIndex}`
       );
       const data = await res.json();
       if (res.ok) {
@@ -61,7 +61,7 @@ export default function DashPosts() {
     setShowModal(false);
     try {
       const res = await fetch(
-        `/api/post/deletepost/${postIdToDelete}/${currentUser._id}`,
+        `/api/content/deletepost/${postIdToDelete}/${currentUser._id}`,
         { method: "DELETE" }
       );
       const data = await res.json();
@@ -101,8 +101,8 @@ export default function DashPosts() {
                   <Table.Cell>
                     <Link to={`/post/${post.slug}`}>
                       <img
-                        src={post.image}
-                        alt={post.title}
+                        src={post.postimage}
+                        alt={post.posttitle}
                         className="w-20 h-10 object-cover object-top bg-gray-500"
                       />
                     </Link>
@@ -112,7 +112,7 @@ export default function DashPosts() {
                       className="font-medium text-gray-900 dark:text-white"
                       to={`/post/${post.slug}`}
                     >
-                      {post.title}
+                      {post.posttitle}
                     </Link>
                   </Table.Cell>
                   <Table.Cell>{post.category}</Table.Cell>
