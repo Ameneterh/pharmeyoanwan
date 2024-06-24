@@ -3,15 +3,15 @@ import { verifyToken } from "../utils/verifyUser.js";
 import {
   createPost,
   getposts,
-  updateproject,
-  deleteproject,
+  updatepost,
+  deletepost,
 } from "../controllers/post.controller.js";
 
 const router = express.Router();
 
 router.post("/create-post", verifyToken, createPost);
 router.get("/getposts", getposts);
-router.put("/updateproject/:projectId/:userId", verifyToken, updateproject);
-router.delete("/deleteproject/:projectId/:userId", verifyToken, deleteproject);
+router.put("/updatepost/:postId/:userId", verifyToken, updatepost);
+router.delete("/deletepost/:postId/:userId", verifyToken, deletepost);
 
 export default router;

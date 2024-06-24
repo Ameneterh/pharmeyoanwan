@@ -13,7 +13,6 @@ import {
   FaLinkedin,
   FaInstagramSquare,
 } from "react-icons/fa";
-import Strings from "../Shared/Strings";
 import { Button, Modal } from "flowbite-react";
 
 export default function HomePage() {
@@ -30,32 +29,11 @@ export default function HomePage() {
     setShowModal(true);
   }, [!currentUser || currentUser._id]);
 
-  const servicesList = [
-    {
-      id: 1,
-      title: Strings.FRONTEND,
-      desc: Strings.FRONTEND_DESC,
-      logo: "/ui-ux-design.png",
-    },
-    {
-      id: 2,
-      title: Strings.GRAPHICS,
-      desc: Strings.GRAPHICS_DESC,
-      logo: "/backend.png",
-    },
-    {
-      id: 3,
-      title: Strings.COACHING,
-      desc: Strings.COACHING_DESC,
-      logo: "/teaching.png",
-    },
-  ];
   return (
     <div>
       <SideBar />
       <div className="ml-12 sm:ml-[90px] grid grid-cols-1 md:grid-cols-3">
         <div className="col-span-1 sm:col-span-2">
-          {/* <Introduction /> */}
           <div className="w-full flex justify-center flex-col items-center text-center">
             <div className="h-[20px] border-r-[3px]"></div>
             <h2 className="uppercase mt-5 text-black dark:text-slate-400 font-medium sm:text-[13px] tracking-widest">

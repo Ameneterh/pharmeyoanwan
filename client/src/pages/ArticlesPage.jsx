@@ -48,12 +48,12 @@ export default function ArticlesPage() {
             {posts &&
               posts.map((post) => <PostCard key={post._id} post={post} />)}
           </div>
-          {/* <div className="sm:hidden flex flex-wrap gap-5 mt-5 justify-center">
+          <div className="sm:hidden flex flex-wrap gap-5 mt-5 justify-center">
             {posts &&
               posts.map((post) => (
                 <PostCardMobile key={post._id} post={post} />
               ))}
-          </div> */}
+          </div>
         </div>
       </div>
     </main>

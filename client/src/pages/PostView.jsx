@@ -3,6 +3,7 @@ import { Link, useParams } from "react-router-dom";
 import { Button, Spinner } from "flowbite-react";
 import { useSelector } from "react-redux";
 import { current } from "@reduxjs/toolkit";
+import CommentSection from "../components/CommentSection";
 
 export default function PostView() {
   const { slug } = useParams();
@@ -72,7 +73,7 @@ export default function PostView() {
     );
 
   return (
-    <main className="p-3 flex flex-col max-w-6xl mx-auto min-h-screen">
+    <main className="p-3 flex flex-col max-w-3xl mb-8 mx-auto min-h-screen">
       <h1 className="text-3xl mt-10 p-3 text-center font-bold max-w-2xl mx-auto lg:text-4xl">
         {post && post.posttitle}
       </h1>
@@ -97,7 +98,7 @@ export default function PostView() {
         </div>
 
         <div className="flex-1">
-          <div className="flex items-center justify-between p-3 border-b border-slate-500 mx-auto w-full max-w-2xl text-xs">
+          <div className="flex items-center justify-between p-3 border-b border-slate-500 mx-auto w-full max-w-3xl text-xs">
             <Link
               to={`/search?category=${post && post.category}`}
               className="text-lg text-blue-700 hover:underline"
@@ -112,15 +113,15 @@ export default function PostView() {
           <img
             src={post && post.postimage}
             alt={post && post.posttitle}
-            className="hidden md:flex mt-4 p-3 max-h-[350px] w-full object-cover object-top"
+            className="hidden md:flex mt-4 p-3 max-h-[350px] max-w-4xl mx-auto object-cover object-top"
           />
 
           <div
             dangerouslySetInnerHTML={{ __html: post && post.postcontent }}
-            className="p-3 max-w-2xl mx-auto w-full post-content text-justify"
+            className="p-3 max-w-4xl mx-auto w-full post-content text-justify"
           ></div>
 
-          {/* <CommentSection postId={post._id} /> */}
+          <CommentSection postId={post._id} />
         </div>
       </div>
     </main>

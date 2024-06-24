@@ -21,7 +21,6 @@ export default function DashPosts() {
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        // const res = await fetch(`/api/post/getposts?userId=${currentUser._id}`);
         const res = await fetch(`/api/content/getposts`);
         const data = await res.json();
         if (res.ok) {
@@ -99,7 +98,7 @@ export default function DashPosts() {
                     {new Date(post.updatedAt).toLocaleDateString()}
                   </Table.Cell>
                   <Table.Cell>
-                    <Link to={`/post/${post.slug}`}>
+                    <Link to={`/posts/${post.slug}`}>
                       <img
                         src={post.postimage}
                         alt={post.posttitle}
@@ -110,7 +109,7 @@ export default function DashPosts() {
                   <Table.Cell>
                     <Link
                       className="font-medium text-gray-900 dark:text-white"
-                      to={`/post/${post.slug}`}
+                      to={`/posts/${post.slug}`}
                     >
                       {post.posttitle}
                     </Link>

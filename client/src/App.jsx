@@ -6,11 +6,12 @@ import SignUp from "./pages/SignUp";
 import Login from "./pages/Login";
 import PrivateRoute from "./components/PrivateRoute";
 import Dashboard from "./pages/Dashboard";
-import UpdateProject from "./pages/UpdateProject";
+import UpdatePost from "./pages/UpdatePost";
 import ArticlesPage from "./pages/ArticlesPage";
 import HealthTalksPage from "./pages/HealthTalksPage";
 import AddContent from "./pages/AddContent";
 import PostView from "./pages/PostView";
+import MotivationalsPage from "./pages/MotivationalsPage";
 
 function App() {
   return (
@@ -23,13 +24,14 @@ function App() {
         <Route path="/posts" element={<ArticlesPage />} />
         <Route path="/health-talks" element={<HealthTalksPage />} />
         <Route path="/contact" element={<ContactPage />} />
-        <Route path="/post/:slug" element={<PostView />} />
+        <Route path="/motivationals" element={<MotivationalsPage />} />
+        <Route path="/posts/:slug" element={<PostView />} />
         <Route element={<PrivateRoute />}>
           <Route path="/dashboard" element={<Dashboard />} />
         </Route>
         <Route element={<PrivateRoute />}>
           <Route path="/add-content" element={<AddContent />} />
-          <Route path="/updateproject/:projectId" element={<UpdateProject />} />
+          <Route path="/update-post/:postId" element={<UpdatePost />} />
         </Route>
       </Routes>
     </BrowserRouter>

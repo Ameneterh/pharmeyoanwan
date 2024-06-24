@@ -70,6 +70,7 @@ export default function AddPost() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
     try {
       const res = await fetch("/api/content/create-post", {
         method: "POST",
@@ -81,14 +82,17 @@ export default function AddPost() {
       const data = await res.json();
       if (!res.ok) {
         setPublishError(data.message);
+        setLoading(false);
         return;
       }
       if (res.ok) {
         setPublishError(null);
-        navigate(`/post/${data.slug}`);
+        setLoading(false);
+        navigate(`/posts/${data.slug}`);
       }
     } catch (error) {
       setPublishError("Something went wrong");
+      setLoading(false);
     }
   };
 
@@ -128,7 +132,7 @@ export default function AddPost() {
 
         {formData.projectimage && (
           <img
-            src={formData.projectimage}
+            src={formData.postimage}
             alt="upload"
             className="w-full, h-72 object-cover"
           />
@@ -154,6 +158,7 @@ export default function AddPost() {
             <option value="cosmetics">Cosmetics & Beauty</option>
             <option value="drugs">Drugs & Medicines</option>
             <option value="foods">Foods & Minerals</option>
+            <option value="others">Others</option>
           </Select>
         </div>
 

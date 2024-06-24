@@ -1,9 +1,10 @@
 import React from "react";
 import { Tabs } from "flowbite-react";
-import { MdOutlinePostAdd } from "react-icons/md";
+import { MdOutlinePostAdd, MdTextsms } from "react-icons/md";
 import { RiVideoAddLine } from "react-icons/ri";
-import AddPost from "./AddPost";
-import AddVideo from "./AddVideo";
+import AddPost from "../components/AddPost";
+import AddVideo from "../components/AddVideo";
+import AddMotivational from "../components/AddMotivational";
 
 export default function AddContent() {
   return (
@@ -14,6 +15,9 @@ export default function AddContent() {
         </Tabs.Item>
         <Tabs.Item active title="Add Video" icon={RiVideoAddLine}>
           <AddVideo />
+        </Tabs.Item>
+        <Tabs.Item active title="Add Motivational" icon={MdTextsms}>
+          <AddMotivational />
         </Tabs.Item>
       </Tabs>
     </div>

@@ -108,6 +108,14 @@ function Header() {
               Health Talks
             </Link>
           </Navbar.Link>
+          <Navbar.Link active={path === "/motivationals"} as={"div"}>
+            <Link
+              to="/motivationals"
+              className="hover:underline underline-offset-4"
+            >
+              Motivationals
+            </Link>
+          </Navbar.Link>
           <Navbar.Link active={path === "/contact"} as={"div"}>
             <Link to="/contact" className="hover:underline underline-offset-4">
               Contact

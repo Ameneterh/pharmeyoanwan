@@ -5,6 +5,7 @@ dotenv.config();
 
 import userRouter from "./routes/user.route.js";
 import authRouter from "./routes/auth.route.js";
+import motivationalRouter from "./routes/motivational.route.js";
 import postRouter from "./routes/post.route.js";
 import videoRouter from "./routes/video.route.js";
 import cookieParser from "cookie-parser";
@@ -31,6 +32,7 @@ app.listen(1010, () => {
 
 app.use("/api/user", userRouter);
 app.use("/api/auth", authRouter);
+app.use("/api/content", motivationalRouter);
 app.use("/api/content", postRouter);
 app.use("/api/content", videoRouter);
 
