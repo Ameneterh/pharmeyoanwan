@@ -11,7 +11,7 @@ import {
 import { Link } from "react-router-dom";
 import { HiOutlineExclamationCircle } from "react-icons/hi";
 
-export default function DashPosts() {
+export default function DashHealthTalks() {
   const { currentUser } = useSelector((state) => state.user);
   const [userPosts, setUserPosts] = useState([]);
   const [showMore, setShowMore] = useState(true);
@@ -21,11 +21,11 @@ export default function DashPosts() {
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const res = await fetch(`/api/post/getposts`);
+        const res = await fetch(`/api/video/getvideos`);
         const data = await res.json();
         if (res.ok) {
-          setUserPosts(data.posts);
-          if (data.posts.length < 9) {
+          setUserPosts(data.videos);
+          if (data.videos.length < 9) {
             setShowMore(false);
           }
         }
@@ -42,12 +42,12 @@ export default function DashPosts() {
     const startIndex = userPosts.length;
     try {
       const res = await fetch(
-        `/api/post/getposts?userId=${currentUser._id}&startIndex=${startIndex}`
+        `/api/video/getvideos?userId=${currentUser._id}&startIndex=${startIndex}`
       );
       const data = await res.json();
       if (res.ok) {
-        setUserPosts((prev) => [...prev, ...data.posts]);
-        if (data.posts.length < 9) {
+        setUserPosts((prev) => [...prev, ...data.videos]);
+        if (data.videos.length < 9) {
           setShowMore(false);
         }
       }
@@ -83,7 +83,6 @@ export default function DashPosts() {
           <Table hoverable className="shadow-md">
             <Table.Head>
               <Table.HeadCell>Date Updated</Table.HeadCell>
-              <Table.HeadCell>Post Image</Table.HeadCell>
               <Table.HeadCell>Post Title</Table.HeadCell>
               <Table.HeadCell>Category</Table.HeadCell>
               <Table.HeadCell>Delete</Table.HeadCell>
@@ -97,21 +96,13 @@ export default function DashPosts() {
                   <Table.Cell>
                     {new Date(post.createdAt).toLocaleDateString()}
                   </Table.Cell>
-                  <Table.Cell>
-                    <Link to={`/posts/${post.slug}`}>
-                      <img
-                        src={post.postimage}
-                        alt={post.posttitle}
-                        className="w-20 h-10 object-cover object-top bg-gray-500"
-                      />
-                    </Link>
-                  </Table.Cell>
+
                   <Table.Cell>
                     <Link
                       className="font-medium text-gray-900 dark:text-white"
                       to={`/posts/${post.slug}`}
                     >
-                      {post.posttitle}
+                      {post.videotitle}
                     </Link>
                   </Table.Cell>
                   <Table.Cell>{post.category}</Table.Cell>
@@ -148,7 +139,7 @@ export default function DashPosts() {
           )}
         </>
       ) : (
-        <p>You have not posts yet!</p>
+        <p>You have not health talk content yet!</p>
       )}
 
       <Modal

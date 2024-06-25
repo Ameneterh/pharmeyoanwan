@@ -18,7 +18,7 @@ export default function PostView() {
     const fetchPosts = async () => {
       try {
         setLoading(true);
-        const res = await fetch(`/api/content/getposts/?slug=${slug}`);
+        const res = await fetch(`/api/post/getposts/?slug=${slug}`);
         let data = await res.json();
 
         if (!res.ok) {
@@ -73,7 +73,7 @@ export default function PostView() {
     );
 
   return (
-    <main className="p-3 flex flex-col max-w-3xl mb-8 mx-auto min-h-screen">
+    <main className="p-3 flex flex-col max-w-3xl pb-10 mx-auto min-h-screen">
       <h1 className="text-3xl mt-10 p-3 text-center font-bold max-w-2xl mx-auto lg:text-4xl">
         {post && post.posttitle}
       </h1>

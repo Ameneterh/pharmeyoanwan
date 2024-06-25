@@ -12,6 +12,8 @@ import HealthTalksPage from "./pages/HealthTalksPage";
 import AddContent from "./pages/AddContent";
 import PostView from "./pages/PostView";
 import MotivationalsPage from "./pages/MotivationalsPage";
+import ViewMotivational from "./pages/ViewMotivational";
+import AdminOnlyRoutes from "./components/AdminOnlyRoutes";
 
 function App() {
   return (
@@ -25,11 +27,15 @@ function App() {
         <Route path="/health-talks" element={<HealthTalksPage />} />
         <Route path="/contact" element={<ContactPage />} />
         <Route path="/motivationals" element={<MotivationalsPage />} />
+        <Route
+          path="/motivationals/:motivationId"
+          element={<ViewMotivational />}
+        />
         <Route path="/posts/:slug" element={<PostView />} />
         <Route element={<PrivateRoute />}>
           <Route path="/dashboard" element={<Dashboard />} />
         </Route>
-        <Route element={<PrivateRoute />}>
+        <Route element={<AdminOnlyRoutes />}>
           <Route path="/add-content" element={<AddContent />} />
           <Route path="/update-post/:postId" element={<UpdatePost />} />
         </Route>

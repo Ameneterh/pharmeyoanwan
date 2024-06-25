@@ -9,6 +9,8 @@ import {
   HiUser,
 } from "react-icons/hi";
 import { TbMessage } from "react-icons/tb";
+import { MdTextsms } from "react-icons/md";
+import { RiVideoAddLine } from "react-icons/ri";
 
 import { Link, useLocation } from "react-router-dom";
 import { signOutSuccess } from "../redux/user/userSlice";
@@ -80,6 +82,30 @@ export default function DashSidebar() {
                 as="div"
               >
                 Posts
+              </Sidebar.Item>
+            </Link>
+          )}
+
+          {currentUser.isAdmin && (
+            <Link to="/dashboard?tab=health-talks">
+              <Sidebar.Item
+                active={tab === "health-talks"}
+                icon={RiVideoAddLine}
+                as="div"
+              >
+                Health Talks
+              </Sidebar.Item>
+            </Link>
+          )}
+
+          {currentUser.isAdmin && (
+            <Link to="/dashboard?tab=motivationals">
+              <Sidebar.Item
+                active={tab === "motivationals"}
+                icon={MdTextsms}
+                as="div"
+              >
+                Motivationals
               </Sidebar.Item>
             </Link>
           )}

@@ -8,6 +8,8 @@ import DashPosts from "../components/DashPosts";
 import DashMessages from "../components/DashMessages";
 import DashUsers from "../components/DashUsers";
 import DashComments from "../components/DashComments";
+import DashMotivational from "../components/DashMotivational";
+import DashHealthTalks from "../components/DashHealthTalks";
 
 export default function Dashboard() {
   const location = useLocation();
@@ -36,6 +38,12 @@ export default function Dashboard() {
 
       {/* for post */}
       {tab === "posts" && <DashPosts />}
+
+      {/* for health talks */}
+      {tab === "health-talks" && <DashHealthTalks />}
+
+      {/* for motivationals */}
+      {tab === "motivationals" && <DashMotivational />}
 
       {/* for messages */}
       {tab === "messages" && <DashMessages />}

@@ -31,7 +31,7 @@ export const getmotivational = async (req, res, next) => {
     const sortDirection = req.query.order || "asc" ? 1 : -1;
     const motivation = await Motivational.find({
       ...(req.query.userId && { userId: req.query.userId }),
-      ...(req.query.motivationalId && { _id: req.query.motivationalId }),
+      ...(req.query.motivationalId && { _id: req.params.motivationalId }),
       ...(req.query.searchTerm && {
         $or: [{ content: { $regex: req.query.searchTerm, $options: "i" } }],
       }),
@@ -60,12 +60,24 @@ export const getmotivational = async (req, res, next) => {
   }
 };
 
+export const getmotivationalbyid = async (req, res, next) => {
+  try {
+    const motivation = await Motivational.findById(req.params.motivationId);
+    if (!motivation) {
+      return next(errorHandler(404, "Data not found!"));
+    }
+    res.status(200).json(motivation);
+  } catch (error) {
+    next(error);
+  }
+};
+
 export const deletemotivational = async (req, res, next) => {
   if (!req.user.isAdmin && req.user.userId !== req.params.userId) {
     return next(errorHandler(403, "You are not allowed to delete this Post"));
   }
   try {
-    await Post.findByIdAndDelete(req.params.postId);
+    await Motivational.findByIdAndDelete(req.params.postId);
     res
       .status(200)
       .json(`The post with id ${req.params.postId} has been deleted`);
@@ -80,7 +92,7 @@ export const updatemotivational = async (req, res, next) => {
   }
 
   try {
-    const updatedPost = await Post.findByIdAndUpdate(
+    const updatedPost = await Motivational.findByIdAndUpdate(
       req.params.postId,
       {
         $set: {

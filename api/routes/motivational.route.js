@@ -3,6 +3,7 @@ import { verifyToken } from "../utils/verifyUser.js";
 import {
   createmotivational,
   getmotivational,
+  getmotivationalbyid,
   updatemotivational,
   deletemotivational,
 } from "../controllers/motivational.controller.js";
@@ -11,6 +12,7 @@ const router = express.Router();
 
 router.post("/create-motivation", verifyToken, createmotivational);
 router.get("/getmotivation", getmotivational);
+router.get("/:motivationId", getmotivationalbyid);
 router.put(
   "/updatemotivation/:motivationId/:userId",
   verifyToken,

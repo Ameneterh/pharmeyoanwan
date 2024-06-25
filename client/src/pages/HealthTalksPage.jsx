@@ -18,7 +18,7 @@ export default function VideosPage() {
     setLoading(true);
     const fetchVideos = async () => {
       try {
-        const res = await fetch("/api/content/getvideos");
+        const res = await fetch("/api/video/getvideos");
         const data = await res.json();
         setVideos(data.videos);
         setLoading(false);

@@ -13,7 +13,7 @@ export default function MotivationalsPage() {
     setLoading(true);
     const fetchMotivations = async () => {
       try {
-        const res = await fetch("/api/content/getmotivation");
+        const res = await fetch("/api/motivational/getmotivation");
         const data = await res.json();
         setMotivations(data.motivation);
         setLoading(false);

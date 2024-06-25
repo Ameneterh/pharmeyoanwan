@@ -57,7 +57,7 @@ export default function AddMotivational() {
           getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
             setImageUploadProgress(null);
             setImageUploadError(null);
-            setFormData({ ...formData, postimage: downloadURL });
+            setFormData({ ...formData, image: downloadURL });
           });
         }
       );
@@ -71,7 +71,7 @@ export default function AddMotivational() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await fetch("/api/content/create-motivation", {
+      const res = await fetch("/api/motivational/create-motivation", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

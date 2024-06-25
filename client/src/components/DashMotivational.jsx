@@ -11,7 +11,7 @@ import {
 import { Link } from "react-router-dom";
 import { HiOutlineExclamationCircle } from "react-icons/hi";
 
-export default function DashPosts() {
+export default function DashMotivational() {
   const { currentUser } = useSelector((state) => state.user);
   const [userPosts, setUserPosts] = useState([]);
   const [showMore, setShowMore] = useState(true);
@@ -21,11 +21,11 @@ export default function DashPosts() {
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const res = await fetch(`/api/post/getposts`);
+        const res = await fetch(`/api/motivational/getmotivation`);
         const data = await res.json();
         if (res.ok) {
-          setUserPosts(data.posts);
-          if (data.posts.length < 9) {
+          setUserPosts(data.motivation);
+          if (data.motivation.length < 9) {
             setShowMore(false);
           }
         }
@@ -42,12 +42,12 @@ export default function DashPosts() {
     const startIndex = userPosts.length;
     try {
       const res = await fetch(
-        `/api/post/getposts?userId=${currentUser._id}&startIndex=${startIndex}`
+        `/api/motivational/getmotivation?userId=${currentUser._id}&startIndex=${startIndex}`
       );
       const data = await res.json();
       if (res.ok) {
-        setUserPosts((prev) => [...prev, ...data.posts]);
-        if (data.posts.length < 9) {
+        setUserPosts((prev) => [...prev, ...data.motivation]);
+        if (data.motivation.length < 9) {
           setShowMore(false);
         }
       }
@@ -60,7 +60,7 @@ export default function DashPosts() {
     setShowModal(false);
     try {
       const res = await fetch(
-        `/api/post/deletepost/${postIdToDelete}/${currentUser._id}`,
+        `/api/motivational/deletemotivation/${postIdToDelete}/${currentUser._id}`,
         { method: "DELETE" }
       );
       const data = await res.json();
@@ -84,8 +84,7 @@ export default function DashPosts() {
             <Table.Head>
               <Table.HeadCell>Date Updated</Table.HeadCell>
               <Table.HeadCell>Post Image</Table.HeadCell>
-              <Table.HeadCell>Post Title</Table.HeadCell>
-              <Table.HeadCell>Category</Table.HeadCell>
+              <Table.HeadCell>Post Content</Table.HeadCell>
               <Table.HeadCell>Delete</Table.HeadCell>
               <Table.HeadCell>
                 <span>Edit</span>
@@ -98,23 +97,31 @@ export default function DashPosts() {
                     {new Date(post.createdAt).toLocaleDateString()}
                   </Table.Cell>
                   <Table.Cell>
-                    <Link to={`/posts/${post.slug}`}>
-                      <img
-                        src={post.postimage}
-                        alt={post.posttitle}
-                        className="w-20 h-10 object-cover object-top bg-gray-500"
-                      />
+                    <Link to={`/motivationals/${post._id}`}>
+                      {post.image ? (
+                        <img
+                          src={post.image}
+                          alt={post._id}
+                          className="w-20 h-10 object-cover object-top bg-gray-500"
+                        />
+                      ) : (
+                        <img
+                          src="https://media.istockphoto.com/id/1264156957/photo/young-man-in-the-city-reaching-his-goals.jpg?s=612x612&w=0&k=20&c=-xtXMjc8CecrJWLkETw6yk6-yVhswh7w1_uh5ele820="
+                          alt={post._id}
+                          className="w-20 h-10 object-cover object-top bg-gray-500"
+                        />
+                      )}
                     </Link>
                   </Table.Cell>
                   <Table.Cell>
                     <Link
                       className="font-medium text-gray-900 dark:text-white"
-                      to={`/posts/${post.slug}`}
+                      to={`/motivationals/${post._id}`}
                     >
-                      {post.posttitle}
+                      {post.content}
                     </Link>
                   </Table.Cell>
-                  <Table.Cell>{post.category}</Table.Cell>
+
                   <Table.Cell>
                     <span
                       onClick={() => {
@@ -148,7 +155,7 @@ export default function DashPosts() {
           )}
         </>
       ) : (
-        <p>You have not posts yet!</p>
+        <p>You have no motivational content yet!</p>
       )}
 
       <Modal

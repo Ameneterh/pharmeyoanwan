@@ -117,12 +117,14 @@ export function MotivationalCard({ motivation }) {
             {author.email}
           </Link>
         </p>
-        <div
-          dangerouslySetInnerHTML={{
-            __html: motivation && motivation.content,
-          }}
-          className="text-sm max-w-4xl mx-auto w-full post-content text-justify"
-        ></div>
+        <Link to={`/motivationals/${motivation._id}`}>
+          <div
+            dangerouslySetInnerHTML={{
+              __html: motivation && motivation.content,
+            }}
+            className="text-sm max-w-4xl mx-auto w-full post-content text-justify"
+          ></div>
+        </Link>
         <span className="text-sm text-slate-500 dark:text-slate-400 flex gap-1">
           <span>{new Date(motivation.createdAt).toLocaleDateString()}</span>
           <p>.</p>

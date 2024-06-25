@@ -8,6 +8,7 @@ import authRouter from "./routes/auth.route.js";
 import motivationalRouter from "./routes/motivational.route.js";
 import postRouter from "./routes/post.route.js";
 import videoRouter from "./routes/video.route.js";
+import commentRouter from "./routes/comment.route.js";
 import cookieParser from "cookie-parser";
 import path from "path";
 
@@ -32,9 +33,10 @@ app.listen(1010, () => {
 
 app.use("/api/user", userRouter);
 app.use("/api/auth", authRouter);
-app.use("/api/content", motivationalRouter);
-app.use("/api/content", postRouter);
-app.use("/api/content", videoRouter);
+app.use("/api/motivational", motivationalRouter);
+app.use("/api/post", postRouter);
+app.use("/api/video", videoRouter);
+app.use("/api/comment", commentRouter);
 
 app.use(express.static(path.join(__dirname, "/client/dist")));
 
