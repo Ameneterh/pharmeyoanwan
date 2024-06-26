@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import {
   Table,
   Alert,
@@ -13,12 +14,11 @@ import { FaCheck, FaTimes } from "react-icons/fa";
 
 export default function DashUsers() {
   const { currentUser } = useSelector((state) => state.user);
+  const navigate = useNavigate();
   const [users, setUsers] = useState([]);
   const [showMore, setShowMore] = useState(true);
   const [showModal, setShowModal] = useState(false);
   const [userIdToDelete, setUserIdToDelete] = useState("");
-
-  console.log(users);
 
   useEffect(() => {
     const fetchUsers = async () => {
@@ -37,6 +37,8 @@ export default function DashUsers() {
     };
     if (currentUser.isAdmin) {
       fetchUsers();
+    } else {
+      navigate("/login");
     }
   }, [currentUser._id]);
 

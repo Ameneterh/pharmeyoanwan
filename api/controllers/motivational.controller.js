@@ -109,3 +109,25 @@ export const updatemotivational = async (req, res, next) => {
     next(error);
   }
 };
+
+export const likemotivational = async (req, res, next) => {
+  try {
+    const motivational = await Motivational.findById(req.params.motivationId);
+    if (!motivational) {
+      return next(errorHandler(404, "Motivational not found"));
+    }
+
+    const userIndex = motivational.likes.indexOf(req.user.userId);
+    if (userIndex === -1) {
+      motivational.numberOfLikes += 1;
+      motivational.likes.push(req.user.userId);
+    } else {
+      motivational.numberOfLikes -= 1;
+      motivational.likes.splice(userIndex, 1);
+    }
+    await motivational.save();
+    res.status(200).json(motivational);
+  } catch (error) {
+    next(error);
+  }
+};

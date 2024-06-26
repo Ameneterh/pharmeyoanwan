@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import {
   Table,
   Alert,
@@ -13,6 +14,7 @@ import { HiOutlineExclamationCircle } from "react-icons/hi";
 
 export default function DashMotivational() {
   const { currentUser } = useSelector((state) => state.user);
+  const navigate = useNavigate();
   const [userPosts, setUserPosts] = useState([]);
   const [showMore, setShowMore] = useState(true);
   const [showModal, setShowModal] = useState(false);
@@ -35,6 +37,8 @@ export default function DashMotivational() {
     };
     if (currentUser.isAdmin) {
       fetchPosts();
+    } else {
+      navigate("/login");
     }
   }, [currentUser._id]);
 

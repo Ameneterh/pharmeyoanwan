@@ -9,13 +9,18 @@ import { MdOutlineAlternateEmail } from "react-icons/md";
 import { FaRegComment, FaRegHeart } from "react-icons/fa";
 import { BiArrowBack } from "react-icons/bi";
 import Divider from "../components/Divider";
+import Comment from "../components/Comment";
 
 export default function PostView() {
   const { motivationId } = useParams();
+  const { currentUser } = useSelector((state) => state.user);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
   const [motivation, setMotivation] = useState({});
+  const [motivations, setMotivations] = useState([]);
+  const [motComments, setMotComments] = useState([]);
   const [author, setAuthor] = useState({});
+  const [showCommentComponent, setShowCommentComponent] = useState(false);
 
   useEffect(() => {
     const fetchMotivation = async () => {
@@ -58,6 +63,55 @@ export default function PostView() {
     getAuthor();
   }, [motivation]);
 
+  useEffect(() => {
+    const getComments = async () => {
+      try {
+        const res = await fetch(`/api/comment/getpostcomments/${motivationId}`);
+
+        if (res.ok) {
+          const data = await res.json();
+          setMotComments(data);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    getComments();
+  }, [motivationId]);
+
+  const handleLike = async (motivationId) => {
+    try {
+      if (!currentUser) {
+        navigate("/login");
+        return;
+      }
+      const res = await fetch(
+        `/api/motivational/likemotivation/${motivationId}`,
+        {
+          method: "PUT",
+        }
+      );
+      if (res.ok) {
+        const data = await res.json();
+        setMotivations(
+          motivations.map((motivation) =>
+            motivation._id === motivationId
+              ? {
+                  ...motivation,
+                  likes: data.likes,
+                  numberOfLikes: data.likes.length,
+                }
+              : motivation
+          )
+        );
+        window.location.reload();
+      }
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
   if (loading)
     return (
       <div className="flex justify-center items-center min-h-screen">
@@ -95,12 +149,12 @@ export default function PostView() {
               {author.email}
             </Link>
           </p>
-          <div className="flex flex-col sm:flex-row gap-6">
+          <div className="flex flex-col-reverse gap-6">
             {motivation.image ? (
               <img
                 src={motivation.image}
-                alt=""
-                className="h-[200px] w-[200px] mb-2"
+                alt={motivation._id}
+                className="rounded-xl mb-2"
               />
             ) : (
               ""
@@ -119,27 +173,51 @@ export default function PostView() {
               {new Date(motivation.createdAt).toLocaleTimeString("en-US")}
             </span>
           </span>
-          <Divider />
-          <div className="flex gap-4">
-            <span className="flex gap-1">
-              <FaRegComment />
+          {/* <Divider /> */}
+          <div className="flex gap-5 items-center">
+            <span className="flex gap-1 items-center text-gray-400">
+              <button
+                type="button"
+                onClick={() => setShowCommentComponent(true)}
+                className={`text-gray-400 hover:text-blue-500`}
+              >
+                <FaRegComment />
+              </button>
+              <p className="text-gray-400">
+                {motComments.length > 0 &&
+                  motComments.length +
+                    " " +
+                    (motComments.length === 1 ? "comment" : "comments")}
+              </p>
             </span>
-            <span className="flex gap-1">
-              <FaRegHeart />
-            </span>
-            <span className="flex gap-1"></span>
+            <div className="flex gap-1">
+              <button
+                type="button"
+                onClick={() => handleLike(motivation._id)}
+                className={`text-gray-400 hover:text-blue-500 ${
+                  currentUser &&
+                  motivation.likes.includes(currentUser._id) &&
+                  "!text-blue-500"
+                }`}
+              >
+                <FaRegHeart />
+              </button>
+              <p className="text-gray-400">
+                {motivation.numberOfLikes > 0 &&
+                  motivation.numberOfLikes +
+                    " " +
+                    (motivation.numberOfLikes === 1 ? "like" : "likes")}
+              </p>
+            </div>
           </div>
           <Divider />
+          <div className="flex flex-col gap-5">
+            <div className="flex-1">
+              <CommentSection postId={motivation._id} />
+            </div>
+          </div>
         </div>
       </div>
     </main>
-    // <main className="p-3 flex flex-col max-w-3xl pb-10 mx-auto min-h-screen">
-    //   <div className="flex flex-col gap-5">
-    //     <MotivationalCard key={motivation._id} motivation={motivation} />
-    //     <div className="flex-1">
-    //       {/* <CommentSection postId={post._id} /> */}
-    //     </div>
-    //   </div>
-    // </main>
   );
 }

@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { MdOutlineAlternateEmail } from "react-icons/md";
 import { FaRegComment, FaRegHeart } from "react-icons/fa";
 import Divider from "./Divider";
+import { useSelector } from "react-redux";
 
 export default function PostCard({ post }) {
   return (
@@ -80,6 +81,7 @@ export function VideoCard({ video }) {
 // Motivational Card
 
 export function MotivationalCard({ motivation }) {
+  const { currentUser } = useSelector((state) => state.user);
   const [author, setAuthor] = useState({});
 
   useEffect(() => {
@@ -96,6 +98,23 @@ export function MotivationalCard({ motivation }) {
     };
     getAuthor();
   }, [motivation]);
+
+  // useEffect(() => {
+  //   const getmotivation = async () => {
+  //     try {
+  //       const res = await fetch(`/api/motivational/${motivation._id}`);
+
+  //       if (res.ok) {
+  //         const data = await res.json();
+  //         setMotComments(data);
+  //       }
+  //     } catch (error) {
+  //       console.log(error);
+  //     }
+  //   };
+
+  //   getmotivation();
+  // }, [motivation._id]);
 
   return (
     <div className="group relative w-full overflow-hidden rounded-lg bg-slate-200 dark:bg-slate-600 transition-all shadow-md p-2 flex items-start">
@@ -132,23 +151,6 @@ export function MotivationalCard({ motivation }) {
             {new Date(motivation.createdAt).toLocaleTimeString("en-US")}
           </span>
         </span>
-        <Divider />
-        <div className="flex gap-4">
-          <span className="flex gap-1">
-            <FaRegComment />
-          </span>
-          <span className="flex gap-1">
-            <FaRegHeart />
-          </span>
-          <span className="flex gap-1"></span>
-        </div>
-        {/* <span className="italic text-sm">{motivation.content}</span> */}
-        {/* <Link
-          to={`/post/${post.slug}`}
-          className="z-10 group-hover:bottom-0  text-teal-500"
-        >
-          Read Article
-        </Link> */}
       </div>
     </div>
   );

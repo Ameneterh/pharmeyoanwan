@@ -6,12 +6,14 @@ import {
   getmotivationalbyid,
   updatemotivational,
   deletemotivational,
+  likemotivational,
 } from "../controllers/motivational.controller.js";
 
 const router = express.Router();
 
 router.post("/create-motivation", verifyToken, createmotivational);
 router.get("/getmotivation", getmotivational);
+router.put("/likemotivation/:motivationId", verifyToken, likemotivational);
 router.get("/:motivationId", getmotivationalbyid);
 router.put(
   "/updatemotivation/:motivationId/:userId",

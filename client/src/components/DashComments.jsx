@@ -18,6 +18,9 @@ export default function DashComments() {
   const [showModal, setShowModal] = useState(false);
   const [commentIdToDelete, setCommentIdToDelete] = useState("");
 
+  console.log(comments);
+  console.log(currentUser);
+
   useEffect(() => {
     const fetchComments = async () => {
       try {

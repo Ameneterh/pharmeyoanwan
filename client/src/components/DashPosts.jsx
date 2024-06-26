@@ -8,11 +8,12 @@ import {
   Spinner,
   TextInput,
 } from "flowbite-react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { HiOutlineExclamationCircle } from "react-icons/hi";
 
 export default function DashPosts() {
   const { currentUser } = useSelector((state) => state.user);
+  const navigate = useNavigate();
   const [userPosts, setUserPosts] = useState([]);
   const [showMore, setShowMore] = useState(true);
   const [showModal, setShowModal] = useState(false);
@@ -35,6 +36,8 @@ export default function DashPosts() {
     };
     if (currentUser.isAdmin) {
       fetchPosts();
+    } else {
+      navigate("/login");
     }
   }, [currentUser._id]);
 

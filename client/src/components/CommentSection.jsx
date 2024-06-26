@@ -1,4 +1,11 @@
-import { Alert, Button, Modal, TextInput, Textarea } from "flowbite-react";
+import {
+  Alert,
+  Button,
+  Modal,
+  Spinner,
+  TextInput,
+  Textarea,
+} from "flowbite-react";
 import { HiOutlineExclamationCircle } from "react-icons/hi";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
@@ -13,6 +20,7 @@ export default function CommentSection({ postId }) {
   const [comments, setComments] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [commentToDelete, setCommentToDelete] = useState(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
@@ -22,6 +30,7 @@ export default function CommentSection({ postId }) {
     }
 
     try {
+      setIsSubmitting(true);
       const res = await fetch("/api/comment/create", {
         method: "POST",
         headers: {
@@ -38,9 +47,12 @@ export default function CommentSection({ postId }) {
         setComment("");
         setCommentError(null);
         setComments([data, ...comments]);
+        setIsSubmitting(false);
+        window.location.reload();
       }
     } catch (error) {
       setCommentError(error.message);
+      setIsSubmitting(false);
     }
   };
 
@@ -64,7 +76,7 @@ export default function CommentSection({ postId }) {
   const handleLike = async (commentId) => {
     try {
       if (!currentUser) {
-        navigate("/sign-in");
+        navigate("/login");
         return;
       }
       const res = await fetch(`/api/comment/likecomment/${commentId}`, {
@@ -101,7 +113,7 @@ export default function CommentSection({ postId }) {
     setShowModal(false);
     try {
       if (!currentUser) {
-        navigate("/sign-in");
+        navigate("/login");
         return;
       }
       const res = await fetch(`/api/comment/deletecomment/${commentId}`, {
@@ -110,6 +122,7 @@ export default function CommentSection({ postId }) {
       if (res.ok) {
         const data = await res.json();
         setComments(comments.filter((comment) => comment._id !== commentId));
+        window.location.reload();
       }
     } catch (error) {
       console.log(error.message);
@@ -136,7 +149,7 @@ export default function CommentSection({ postId }) {
       ) : (
         <div className="text-sm text-teal-500 my-5 flex gap-1">
           You must be signed in to comment.
-          <Link to={"/sign-in"} className="text-blue-500 hover:underline">
+          <Link to={"/login"} className="text-blue-500 hover:underline">
             Sign in
           </Link>
         </div>
@@ -160,7 +173,14 @@ export default function CommentSection({ postId }) {
               remaining
             </p>
             <Button outline gradientDuoTone="purpleToBlue" type="submit">
-              Submit Comment
+              {isSubmitting ? (
+                <>
+                  <Spinner size="sm" />
+                  {/* <span className="pl-3">Submitting ...</span> */}
+                </>
+              ) : (
+                "Submit"
+              )}
             </Button>
           </div>
           {commentError && (
@@ -174,12 +194,12 @@ export default function CommentSection({ postId }) {
         <p className="text-sm my-5">No comments yet</p>
       ) : (
         <>
-          <div className="text-sm my-5 flex items-center gap-1">
+          {/* <div className="text-sm my-5 flex items-center gap-1">
             <p>Comments</p>
             <div className="border border-gray-400 py-1 px-2 rounded-sm">
               {comments.length}
             </div>
-          </div>
+          </div> */}
           {comments.map((comment) => (
             <Comment
               key={comment._id}

@@ -3,10 +3,13 @@ import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { Spinner } from "flowbite-react";
 import { MotivationalCard } from "../components/Card";
+import { useNavigate } from "react-router-dom";
 
 export default function MotivationalsPage() {
+  const navigate = useNavigate();
   const { currentUser } = useSelector((state) => state.user);
   const [loading, setLoading] = useState(false);
+  const [motivation, setMotivation] = useState("");
   const [motivations, setMotivations] = useState([]);
 
   useEffect(() => {
@@ -39,24 +42,6 @@ export default function MotivationalsPage() {
         </h1>
 
         <div className="flex flex-col md:flex-row items-start justify-start mb-5 gap-4 mt-5">
-          {/* <div className="p-2 gap-2 hidden md:flex h-48 w-72 bg-slate-200 dark:bg-slate-600 rounded-lg border border-t-2 border-b-2 border-t-slate-700 border-b-slate-700">
-            <div className="w-16 h-16 rounded-full shadow-lg">
-              <img
-                src={
-                  currentUser
-                    ? currentUser.avatar
-                    : "https://cdn.iconscout.com/icon/free/png-256/free-avatar-372-456324.png"
-                }
-                alt="author image"
-                className="w-16 h-16 rounded-full object-cover object-top"
-              />
-            </div>
-            <div className="flex flex-col gap-2">
-              <p>{currentUser ? currentUser.fullname : "Anonymous User"}</p>
-              <p>{currentUser ? currentUser.email : "No Anonymous Email"}</p>
-              <p className="mt-10">Edit Profile</p>
-            </div>
-          </div> */}
           <div className="flex flex-1 flex-wrap gap-5">
             {motivations &&
               motivations.map((motivation) => (
