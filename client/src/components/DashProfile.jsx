@@ -233,7 +233,7 @@ export default function DashProfile() {
           )}
         </Button>
 
-        {currentUser && (
+        {currentUser.isAdmin && (
           <Link to="/add-content">
             <Button
               type="button"
