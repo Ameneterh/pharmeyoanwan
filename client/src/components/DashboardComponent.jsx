@@ -16,11 +16,16 @@ export default function DashboardComponent() {
   const [posts, setPosts] = useState([]);
   const [totalUsers, setTotalUsers] = useState(0);
   const [totalPosts, setTotalPosts] = useState(0);
+  const [motivations, setMotivations] = useState(0);
+  const [totalMotivations, setTotalMotivations] = useState(0);
+  const [lastMonthMotivations, setLastMonthMotivations] = useState(0);
   const [totalComments, setTotalComments] = useState(0);
   const [lastMonthUsers, setLastMonthUsers] = useState(0);
   const [lastMonthPosts, setLastMonthPosts] = useState(0);
   const [lastMonthComments, setLastMonthComments] = useState(0);
   const { currentUser } = useSelector((state) => state.user);
+
+  console.log(lastMonthMotivations);
 
   useEffect(() => {
     const fetchUsers = async () => {
@@ -51,6 +56,20 @@ export default function DashboardComponent() {
       }
     };
 
+    const fetchMotivations = async () => {
+      try {
+        const res = await fetch("/api/motivational/getmotivation");
+        const data = await res.json();
+        if (res.ok) {
+          setMotivations(data.motivations);
+          setTotalMotivations(data.totalMotivations);
+          setLastMonthMotivations(data.lastMonthMotivations);
+        }
+      } catch (error) {
+        console.log(error.message);
+      }
+    };
+
     const fetchComments = async () => {
       try {
         const res = await fetch("/api/comment/getcomments?limit=5");
@@ -69,31 +88,53 @@ export default function DashboardComponent() {
       fetchUsers();
       fetchPosts();
       fetchComments();
+      fetchMotivations();
     }
   }, [currentUser]);
 
   return (
     <div className="p-3 md:mx-auto w-full">
       <div className="flex-wrap flex gap-4 justify-center">
-        <div className="flex flex-col p-3 dark:bg-slate-800 gap-4 md:w-72 w-full rounded-md shadow-md">
+        {/* total posts */}
+        <div className="flex flex-col p-3 dark:bg-slate-800 gap-4 md:w-60 w-full rounded-md shadow-md">
           <div className="flex justify-between">
             <div className="">
-              <h3 className="text-gray-500 text-md uppercase">Total Users</h3>
-              <p className="text-2xl">{totalUsers}</p>
+              <h3 className="text-gray-500 text-md uppercase">Total Posts</h3>
+              <p className="text-2xl">{totalPosts}</p>
             </div>
-            <HiOutlineUserGroup className="bg-teal-600 text-white rounded-full text-5xl p-3 shadow-lg" />
+            <HiDocumentText className="bg-lime-600 text-white rounded-full text-5xl p-3 shadow-lg" />
           </div>
           <div className="flex gap-2 text-sm">
             <span className="text-green-500 flex items-center">
               <HiArrowNarrowUp />
-              {lastMonthUsers}
+              {lastMonthPosts}
             </span>
             <div className="text-gray-500">Last Month</div>
           </div>
         </div>
 
-        {/* 2nd */}
-        <div className="flex flex-col p-3 dark:bg-slate-800 gap-4 md:w-72 w-full rounded-md shadow-md">
+        {/* total motivations */}
+        <div className="flex flex-col p-3 dark:bg-slate-800 gap-4 md:w-60 w-full rounded-md shadow-md">
+          <div className="flex justify-between">
+            <div className="">
+              <h3 className="text-gray-500 text-md uppercase">
+                Total Motivations
+              </h3>
+              <p className="text-2xl">{totalMotivations}</p>
+            </div>
+            <HiDocumentText className="bg-lime-600 text-white rounded-full text-5xl p-3 shadow-lg" />
+          </div>
+          <div className="flex gap-2 text-sm">
+            <span className="text-green-500 flex items-center">
+              <HiArrowNarrowUp />
+              {lastMonthMotivations}
+            </span>
+            <div className="text-gray-500">Last Month</div>
+          </div>
+        </div>
+
+        {/* total comments */}
+        <div className="flex flex-col p-3 dark:bg-slate-800 gap-4 md:w-60 w-full rounded-md shadow-md">
           <div className="flex justify-between">
             <div className="">
               <h3 className="text-gray-500 text-md uppercase">
@@ -112,19 +153,19 @@ export default function DashboardComponent() {
           </div>
         </div>
 
-        {/* 3rd */}
-        <div className="flex flex-col p-3 dark:bg-slate-800 gap-4 md:w-72 w-full rounded-md shadow-md">
+        {/* total users */}
+        <div className="flex flex-col p-3 dark:bg-slate-800 gap-4 md:w-60 w-full rounded-md shadow-md">
           <div className="flex justify-between">
             <div className="">
-              <h3 className="text-gray-500 text-md uppercase">Total Posts</h3>
-              <p className="text-2xl">{totalPosts}</p>
+              <h3 className="text-gray-500 text-md uppercase">Total Users</h3>
+              <p className="text-2xl">{totalUsers}</p>
             </div>
-            <HiDocumentText className="bg-lime-600 text-white rounded-full text-5xl p-3 shadow-lg" />
+            <HiOutlineUserGroup className="bg-teal-600 text-white rounded-full text-5xl p-3 shadow-lg" />
           </div>
           <div className="flex gap-2 text-sm">
             <span className="text-green-500 flex items-center">
               <HiArrowNarrowUp />
-              {lastMonthPosts}
+              {lastMonthUsers}
             </span>
             <div className="text-gray-500">Last Month</div>
           </div>
@@ -218,12 +259,12 @@ export default function DashboardComponent() {
                 <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
                   <Table.Cell>
                     <img
-                      src={post.image}
+                      src={post.postimage}
                       alt="user"
-                      className="w-14. h-10 rounded-md bg-gray-500"
+                      className="w-20 h-10 rounded-md bg-gray-500"
                     />
                   </Table.Cell>
-                  <Table.Cell className="w-96">{post.title}</Table.Cell>
+                  <Table.Cell className="w-3/5">{post.posttitle}</Table.Cell>
                   <Table.Cell className="w-5">{post.category}</Table.Cell>
                 </Table.Row>
               </Table.Body>

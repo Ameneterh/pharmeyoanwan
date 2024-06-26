@@ -77,6 +77,14 @@ function Header() {
                 <Dropdown.Item>Profile</Dropdown.Item>
               </Link>
               <Dropdown.Divider />
+              {currentUser.isAdmin && (
+                <>
+                  <Link to={"/add-content"}>
+                    <Dropdown.Item>Add Content</Dropdown.Item>
+                  </Link>
+                  <Dropdown.Divider />
+                </>
+              )}
               <Dropdown.Item onClick={handleSignout}>Log Out</Dropdown.Item>
             </Dropdown>
           ) : (

@@ -72,7 +72,7 @@ export default function AddPost() {
     e.preventDefault();
     setLoading(true);
     try {
-      const res = await fetch("/api/content/create-post", {
+      const res = await fetch("/api/post/create-post", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -130,7 +130,7 @@ export default function AddPost() {
 
         {imageUploadError && <Alert color="failure">{imageUploadError}</Alert>}
 
-        {formData.projectimage && (
+        {formData.postimage && (
           <img
             src={formData.postimage}
             alt="upload"
