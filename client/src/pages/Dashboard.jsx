@@ -46,7 +46,7 @@ export default function Dashboard() {
       {tab === "motivationals" && <DashMotivational />}
 
       {/* for messages */}
-      {tab === "messages" && <DashMessages />}
+      {/* {tab === "messages" && <DashMessages />} */}
 
       {/* for post */}
       {tab === "users" && <DashUsers />}
