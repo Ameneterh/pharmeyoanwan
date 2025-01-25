@@ -22,6 +22,8 @@ export default function PostView() {
   const [author, setAuthor] = useState({});
   const [showCommentComponent, setShowCommentComponent] = useState(false);
 
+  console.log(motivation);
+
   useEffect(() => {
     const fetchMotivation = async () => {
       try {
